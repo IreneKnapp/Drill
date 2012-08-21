@@ -17,20 +17,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FC7EF80E15E30FF8009A6BBC /* Med.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Med.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "modern-data-editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC7EF81215E30FF8009A6BBC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		FC7EF81515E30FF8009A6BBC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		FC7EF81615E30FF8009A6BBC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FC7EF81715E30FF8009A6BBC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		FC7EF81A15E30FF8009A6BBC /* Med-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Med-Info.plist"; sourceTree = "<group>"; };
+		FC7EF81A15E30FF8009A6BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FC7EF81C15E30FF8009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FC7EF81E15E30FF8009A6BBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		FC7EF82015E30FF8009A6BBC /* Med-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Med-Prefix.pch"; sourceTree = "<group>"; };
+		FC7EF82015E30FF8009A6BBC /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		FC7EF82215E30FF8009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		FC7EF82415E30FF8009A6BBC /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		FC7EF82515E30FF8009A6BBC /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
-		FC7EF82815E30FF8009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Document.xib; sourceTree = "<group>"; };
-		FC7EF82B15E30FF8009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FC7EF83915E312D1009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Document.xib; sourceTree = "<group>"; };
+		FC7EF83A15E312EE009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +48,9 @@
 		FC7EF80315E30FF8009A6BBC = {
 			isa = PBXGroup;
 			children = (
-				FC7EF81815E30FF8009A6BBC /* Med */,
+				FC7EF81815E30FF8009A6BBC /* Code */,
+				FC7EF83715E31076009A6BBC /* XIBs */,
+				FC7EF81915E30FF8009A6BBC /* Supporting Files */,
 				FC7EF81115E30FF8009A6BBC /* Frameworks */,
 				FC7EF80F15E30FF8009A6BBC /* Products */,
 			);
@@ -57,7 +59,7 @@
 		FC7EF80F15E30FF8009A6BBC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC7EF80E15E30FF8009A6BBC /* Med.app */,
+				FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,36 +83,44 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		FC7EF81815E30FF8009A6BBC /* Med */ = {
+		FC7EF81815E30FF8009A6BBC /* Code */ = {
 			isa = PBXGroup;
 			children = (
 				FC7EF82415E30FF8009A6BBC /* Document.h */,
 				FC7EF82515E30FF8009A6BBC /* Document.m */,
-				FC7EF82715E30FF8009A6BBC /* Document.xib */,
-				FC7EF82A15E30FF8009A6BBC /* MainMenu.xib */,
-				FC7EF81915E30FF8009A6BBC /* Supporting Files */,
+				FC7EF81E15E30FF8009A6BBC /* main.m */,
 			);
-			path = Med;
+			name = Code;
+			path = ObjC;
 			sourceTree = "<group>";
 		};
 		FC7EF81915E30FF8009A6BBC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FC7EF81A15E30FF8009A6BBC /* Med-Info.plist */,
+				FC7EF81A15E30FF8009A6BBC /* Info.plist */,
 				FC7EF81B15E30FF8009A6BBC /* InfoPlist.strings */,
-				FC7EF81E15E30FF8009A6BBC /* main.m */,
-				FC7EF82015E30FF8009A6BBC /* Med-Prefix.pch */,
+				FC7EF82015E30FF8009A6BBC /* Prefix.pch */,
 				FC7EF82115E30FF8009A6BBC /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			path = Support;
+			sourceTree = "<group>";
+		};
+		FC7EF83715E31076009A6BBC /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				FC7EF82715E30FF8009A6BBC /* Document.xib */,
+				FC7EF82A15E30FF8009A6BBC /* MainMenu.xib */,
+			);
+			path = XIBs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FC7EF80D15E30FF8009A6BBC /* Med */ = {
+		FC7EF80D15E30FF8009A6BBC /* modern-data-editor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "Med" */;
+			buildConfigurationList = FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "modern-data-editor" */;
 			buildPhases = (
 				FC7EF80A15E30FF8009A6BBC /* Sources */,
 				FC7EF80B15E30FF8009A6BBC /* Frameworks */,
@@ -120,9 +130,9 @@
 			);
 			dependencies = (
 			);
-			name = Med;
+			name = "modern-data-editor";
 			productName = Med;
-			productReference = FC7EF80E15E30FF8009A6BBC /* Med.app */;
+			productReference = FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -134,7 +144,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Irene Knapp";
 			};
-			buildConfigurationList = FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "Med" */;
+			buildConfigurationList = FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "modern-data-editor" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -146,7 +156,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC7EF80D15E30FF8009A6BBC /* Med */,
+				FC7EF80D15E30FF8009A6BBC /* modern-data-editor */,
 			);
 		};
 /* End PBXProject section */
@@ -197,7 +207,7 @@
 		FC7EF82715E30FF8009A6BBC /* Document.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC7EF82815E30FF8009A6BBC /* en */,
+				FC7EF83915E312D1009A6BBC /* en */,
 			);
 			name = Document.xib;
 			sourceTree = "<group>";
@@ -205,7 +215,7 @@
 		FC7EF82A15E30FF8009A6BBC /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC7EF82B15E30FF8009A6BBC /* en */,
+				FC7EF83A15E312EE009A6BBC /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -267,11 +277,13 @@
 		FC7EF83015E30FF8009A6BBC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Med/Med-Prefix.pch";
-				INFOPLIST_FILE = "Med/Med-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = Support/Prefix.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
+				PRODUCT_NAME = "modern-data-editor";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -279,11 +291,13 @@
 		FC7EF83115E30FF8009A6BBC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Med/Med-Prefix.pch";
-				INFOPLIST_FILE = "Med/Med-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = Support/Prefix.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
+				PRODUCT_NAME = "modern-data-editor";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -291,7 +305,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "Med" */ = {
+		FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "modern-data-editor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC7EF82D15E30FF8009A6BBC /* Debug */,
@@ -300,13 +314,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "Med" */ = {
+		FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "modern-data-editor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC7EF83015E30FF8009A6BBC /* Debug */,
 				FC7EF83115E30FF8009A6BBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
