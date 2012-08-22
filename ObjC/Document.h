@@ -9,5 +9,13 @@
 #import <Cocoa/Cocoa.h>
 
 @interface Document : NSDocument
+@property (strong, nonatomic) IBOutlet NSWindow *mainWindow;
 
+- (id) init;
+- (NSString *) windowNibName;
+- (void) windowControllerDidLoadNib: (NSWindowController *) controller;
+- (void) windowDidResize: (NSNotification *) notification;
++ (BOOL) autosavesInPlace;
+- (NSData *) dataOfType: (NSString *) typeName error: (NSError **) outError;
+- (BOOL) readFromData: (NSData *) data ofType: (NSString *) typeName error: (NSError **) outError;
 @end
