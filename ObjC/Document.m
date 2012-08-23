@@ -9,12 +9,15 @@
 #import "Document.h"
 #import "AppDelegate.h"
 #import "DocumentWindowController.h"
+#import "Modern.h"
 
 @implementation Document
 
 - (id) init {
     self = [super init];
     if (self) {
+        _schemaNodes = [NSMutableArray arrayWithCapacity: 128];
+        _valueNodes = [NSMutableArray arrayWithCapacity: 128];
     }
     return self;
 }
@@ -29,9 +32,12 @@
 
 - (void) makeWindowControllers {
 	DocumentWindowController *mainWindowController =
-		[[DocumentWindowController alloc] init];
+		[[DocumentWindowController alloc]
+		    initWithMode: [(AppDelegate *) [NSApp delegate] schemaMode]];
 	[self setMainWindow: [mainWindowController window]];
 	[self addWindowController: mainWindowController];
+	[mainWindowController updateAdvice];
+	[(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
 }
 
 
@@ -51,6 +57,18 @@
     NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
     @throw exception;
     return YES;
+}
+
+
+- (NSArray *) schemaNodes {
+    return _schemaNodes;
+}
+
+
+- (void) addSchemaNode: (Modern *) node {
+    [_schemaNodes addObject: node];
+    [(DocumentWindowController *) [[self mainWindow] windowController]
+        updateDocumentContent];
 }
 
 @end

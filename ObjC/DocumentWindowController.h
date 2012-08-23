@@ -8,10 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class DocumentView;
+@protocol Mode;
 @interface DocumentWindowController : NSWindowController
+@property (strong, nonatomic) IBOutlet NSScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet DocumentView *documentView;
 @property (nonatomic) NSRect savedNonFullScreenFrame;
+@property (strong, nonatomic) NSMutableArray *adviceItems;
 
-- (id) init;
+- (id) initWithMode: (id <Mode>) mode;
 - (void) windowDidResize: (NSNotification *) notification;
 - (NSArray *) customWindowsToEnterFullScreenForWindow: (NSWindow *) window;
 - (void) window: (NSWindow *) window
@@ -21,4 +26,10 @@
 - (void) window: (NSWindow *) window
          startCustomAnimationToExitFullScreenWithDuration:
              (NSTimeInterval) duration;
+- (void) updateAdvice;
+- (void) windowWillClose: (NSNotification *) notification;
+- (void) updateDocumentViewSizeWithNotification: (NSNotification *) notification;
+- (void) updateDocumentViewSize;
+- (void) keyDown: (NSEvent *) event inDocumentView: (DocumentView *) documentView;
+- (void) updateDocumentContent;
 @end

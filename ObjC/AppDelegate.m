@@ -8,9 +8,16 @@
 
 #import "AppDelegate.h"
 #import "AdviceView.h"
+#import "Command.h"
 #import "Document.h"
+#import "SchemaMode.h"
 
 @implementation AppDelegate
+
+- (void) applicationWillFinishLaunching: (NSNotification *) notification {
+    _schemaMode = [[SchemaMode alloc] init];
+}
+
 
 - (void) applicationDidFinishLaunching: (NSNotification *) notification {
 	[self setInFullScreenTransition: NO];
@@ -64,7 +71,7 @@
 	NSPanel *panel = [self advicePanel];
 	
     if(![self inFullScreenTransition]) {
-		NSRect windowFrame = [window frame];
+		NSRect windowFrame = [window contentRectForFrameRect: [window frame]];
 		
 		NSRect adviceFrame = [panel frame];
 		adviceFrame.origin.x = windowFrame.origin.x + windowFrame.size.width;
@@ -80,12 +87,19 @@
 		[panel setFrame: adviceFrame display: NO];
     	[window addChildWindow: panel ordered: NSWindowAbove];
 		[document addWindowController: windowController];
+		[[self adviceView] setAttachedWindow: window];
+		[[self adviceView] setNeedsDisplay: YES];
     }
 }
 
 
-- (void) setAdvice: (NSString *) advice {
-    [[self adviceView] setAdvice: advice];
+- (void) adviceNeedsDisplay {
+    [[self adviceView] setNeedsDisplay: YES];
+}
+
+
+- (id <Mode>) schemaMode {
+    return _schemaMode;
 }
 
 @end

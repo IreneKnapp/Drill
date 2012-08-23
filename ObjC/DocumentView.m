@@ -7,10 +7,12 @@
 //
 
 #import "DocumentView.h"
+#import "Document.h"
+#import "DocumentWindowController.h"
 
 @implementation DocumentView
 
-- (id)initWithFrame:(NSRect)frame
+- (id) initWithFrame: (NSRect) frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -20,10 +22,52 @@
     return self;
 }
 
+
+- (Document *) document {
+    DocumentWindowController *documentWindowController =
+        [self documentWindowController];
+    if(!documentWindowController) return nil;
+    return [documentWindowController document];
+}
+
+
+- (DocumentWindowController *) documentWindowController {
+    NSWindow *window = [self window];
+    if(!window) return nil;
+    NSWindowController *windowController = [window windowController];
+    if(!windowController) return nil;
+    if(![windowController isKindOfClass: [DocumentWindowController class]])
+        return nil;
+    return (DocumentWindowController *) windowController;
+}
+
+
 - (void) drawRect: (NSRect) dirtyRect
 {
-    [[NSColor redColor] set];
+    [[NSColor colorWithDeviceRed: 0.84 green: 0.87 blue: 8.90 alpha: 1.0] set];
     [NSBezierPath fillRect: dirtyRect];
+    
+    NSString *string =
+        [NSString stringWithFormat: @"%lu",
+            (unsigned long) [[[self document] schemaNodes] count]];
+    NSDictionary *attributes = [NSDictionary dictionary];
+    [string drawInRect: [self bounds]
+            withAttributes: attributes];
+    /*
+    [[NSColor blackColor] set];
+    [NSBezierPath setDefaultLineWidth: 10.0];
+    [NSBezierPath strokeRect: [self bounds]];
+    */
+}
+
+
+- (BOOL) acceptsFirstResponder {
+    return YES;
+}
+
+
+- (void) keyDown: (NSEvent *) event {
+    [[self documentWindowController] keyDown: event inDocumentView: self];
 }
 
 @end

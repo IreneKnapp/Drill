@@ -7,22 +7,32 @@
 //
 
 #import "AdviceView.h"
+#import "Document.h"
+#import "DocumentWindowController.h"
 
 @implementation AdviceView
 
-- (id) initWithFrame: (NSRect) frame {
-    self = [super initWithFrame:frame];
+- (id) initWithCoder: (NSCoder *) coder {
+    self = [super initWithCoder: coder];
     if(self) {
-        [self setAdvice: @"Foo."];
+        adviceAttributes = [NSMutableDictionary dictionaryWithCapacity: 3];
         
-        adviceAttributes = [NSMutableDictionary dictionaryWithCapacity: 1];
+        NSFont *font = [NSFont systemFontOfSize: 14.0];
+        [adviceAttributes setObject: font forKey: NSFontAttributeName];
+        
+        NSShadow *shadow = [[NSShadow alloc] init];
+        [shadow setShadowBlurRadius: 1.0];
+        [shadow setShadowColor: [NSColor whiteColor]];
+        [adviceAttributes setObject: shadow forKey: NSShadowAttributeName];
     }
     return self;
 }
 
 
 - (void) drawRect: (NSRect) dirtyRect {
-    [[NSColor windowBackgroundColor] set];
+    if(![self attachedWindow]) return;
+    
+    [[self window] invalidateShadow];
     
     NSBezierPath *path = [NSBezierPath bezierPath];
     
@@ -36,8 +46,6 @@
     CGFloat nearRight = right - radius;
     CGFloat nearBottom = bottom + radius;
     CGFloat nearTop = top - radius;
-    
-    NSRect textBounds = NSInsetRect(bounds, radius, radius);
     
     [path moveToPoint: NSMakePoint(left, bottom)];
     [path lineToPoint: NSMakePoint(nearRight, bottom)];
@@ -56,14 +64,40 @@
     [path lineToPoint: NSMakePoint(left, bottom)];
     [path closePath];
     
-    [[NSColor colorWithDeviceWhite: 1.0 alpha: 0.5] set];
+    [[NSColor colorWithDeviceWhite: 1.0 alpha: 0.95] set];
     [path fill];
     
-    if([self advice]) {
+    NSWindow *window = [self attachedWindow];
+    if(!window) return;
+    NSWindowController *windowController = [window windowController];
+    if(!windowController
+       || ![windowController isKindOfClass: [DocumentWindowController class]])
+        return;
+    NSArray *adviceItems = [(DocumentWindowController *) windowController adviceItems];
+    
+    NSStringDrawingOptions options =
+        NSStringDrawingUsesLineFragmentOrigin
+        | NSStringDrawingTruncatesLastVisibleLine;
+    
+    CGFloat textTop = top - radius;
+    CGFloat textBottom = bottom + radius;
+    CGFloat textLeft = left + radius;
+    CGFloat textRight = right - radius;
+    for(NSString *adviceItem in adviceItems) {
         NSAttributedString *attributedString =
-            [[NSAttributedString alloc] initWithString: [self advice]
+            [[NSAttributedString alloc] initWithString: adviceItem
                                         attributes: adviceAttributes];
-        [attributedString drawInRect: textBounds];
+        
+        NSSize textMaxSize = NSMakeSize(textRight - textLeft, textTop - textBottom);
+        NSRect textBounds =
+            [attributedString boundingRectWithSize: textMaxSize options: options];
+        textBounds.origin.x = textLeft;
+        textBounds.origin.y = textTop - textBounds.size.height;
+        
+        [attributedString drawWithRect: textBounds options: options];
+        
+        CGFloat lineHeight = [attributedString size].height;
+        textTop -= textBounds.size.height + lineHeight / 2.0;
     }
 }
 

@@ -8,14 +8,26 @@
 
 #import "DocumentWindowController.h"
 #import "AppDelegate.h"
+#import "Command.h"
 #import "Document.h"
+#import "DocumentView.h"
 
 @implementation DocumentWindowController
 
-- (id) init {
+- (id) initWithMode: (id <Mode>) mode {
     self = [super initWithWindowNibName: @"Document"];
     if(self) {
     	[self saveNonFullScreenFrame];
+    	[self setAdviceItems: [NSMutableArray arrayWithCapacity: 32]];
+    	[[self documentView] setMode: mode];
+        [self updateDocumentViewSize];
+        
+        NSNotificationCenter *notificationCenter =
+            [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver: self
+                            selector: @selector(updateDocumentViewSizeWithNotification:)
+                            name: NSViewFrameDidChangeNotification
+                            object: [self scrollView]];
     }
     return self;
 }
@@ -122,6 +134,68 @@
     	[window addChildWindow: advicePanel ordered: NSWindowAbove];
 		[document addWindowController: windowController];
 	}];
+}
+
+
+- (void) updateAdvice {
+    DocumentView *documentView = [self documentView];
+    id <Mode> mode = [documentView mode];
+    
+    [[self adviceItems] removeAllObjects];
+    
+    for(NSString *item in [mode adviceHeaderItems: documentView]) {
+        [[self adviceItems] addObject: item];
+    }
+    
+    for(Command *command in [mode availableCommands: documentView]) {
+        NSString *keystroke = [command characters];
+        
+        if([keystroke isEqualToString: @"\x1B"])
+            keystroke = @"esc";
+        
+        [[self adviceItems] addObject:
+            [NSString stringWithFormat: @"%@\t%@",
+                keystroke, [command headline: [self documentView]]]];
+    }
+    
+    for(NSString *item in [mode adviceFooterItems: documentView]) {
+        [[self adviceItems] addObject: item];
+    }
+}
+
+
+- (void) windowWillClose: (NSNotification *) notification {
+    NSNotificationCenter *notificationCenter =
+        [NSNotificationCenter defaultCenter];
+    [notificationCenter removeObserver: self];
+}
+
+
+- (void) updateDocumentViewSizeWithNotification: (NSNotification *) notification {
+    [self updateDocumentViewSize];
+}
+
+
+- (void) updateDocumentViewSize {
+    NSRect frame = [[self scrollView] frame];
+    frame.origin = NSZeroPoint;
+    [[self documentView] setFrame: frame];
+}
+
+
+- (void) keyDown: (NSEvent *) event inDocumentView: (DocumentView *) documentView {
+    id <Mode> mode = [documentView mode];
+    for(Command *command in [mode availableCommands: documentView]) {
+        if([[command characters] isEqualToString: [event characters]]) {
+            [command invoke: documentView];
+            break;
+        }
+    }
+}
+
+
+- (void) updateDocumentContent {
+    [[self documentView] setNeedsDisplay: YES];
 }
 
 @end

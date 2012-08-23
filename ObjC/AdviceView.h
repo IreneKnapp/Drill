@@ -11,8 +11,8 @@
 @interface AdviceView : NSView {
     NSMutableDictionary *adviceAttributes;
 }
-@property (strong, nonatomic) NSString *advice;
+@property (strong, nonatomic) NSWindow *attachedWindow;
 
-- (id) initWithFrame: (NSRect) frame;
+- (id) initWithCoder: (NSCoder *) coder;
 - (void) drawRect: (NSRect) dirtyRect;
 @end

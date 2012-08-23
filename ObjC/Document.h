@@ -8,8 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Document : NSDocument
+@class Modern;
+@interface Document : NSDocument {
+    NSMutableArray *_schemaNodes;
+    NSMutableArray *_valueNodes;
+}
 @property (strong, nonatomic) NSWindow *mainWindow;
+@property (strong, nonatomic) NSMutableArray *adviceItems;
 
 - (id) init;
 - (void) windowControllerDidLoadNib: (NSWindowController *) controller;
@@ -17,4 +22,6 @@
 + (BOOL) autosavesInPlace;
 - (NSData *) dataOfType: (NSString *) typeName error: (NSError **) outError;
 - (BOOL) readFromData: (NSData *) data ofType: (NSString *) typeName error: (NSError **) outError;
+- (NSArray *) schemaNodes;
+- (void) addSchemaNode: (Modern *) node;
 @end

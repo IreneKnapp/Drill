@@ -10,6 +10,9 @@
 		9814855F15E54F170026E714 /* DocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814855E15E54F170026E714 /* DocumentView.m */; };
 		9814856215E552510026E714 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856115E552510026E714 /* AppDelegate.m */; };
 		9814856515E555E50026E714 /* AdviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856415E555E50026E714 /* AdviceView.m */; };
+		9884318F15E6BFD90057752B /* Modern.m in Sources */ = {isa = PBXBuildFile; fileRef = 9884318E15E6BFD90057752B /* Modern.m */; };
+		98AE3F7915E6895D004CE0D4 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7815E6895D004CE0D4 /* Command.m */; };
+		98AE3F7E15E68E95004CE0D4 /* SchemaMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */; };
 		FC024B5C15E5AEBC00368FEA /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */; };
 		FC7EF81315E30FF8009A6BBC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7EF81215E30FF8009A6BBC /* Cocoa.framework */; };
 		FC7EF81D15E30FF8009A6BBC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC7EF81B15E30FF8009A6BBC /* InfoPlist.strings */; };
@@ -27,6 +30,13 @@
 		9814856115E552510026E714 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9814856315E555E50026E714 /* AdviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdviceView.h; sourceTree = "<group>"; };
 		9814856415E555E50026E714 /* AdviceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdviceView.m; sourceTree = "<group>"; };
+		9884318D15E6BFD90057752B /* Modern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Modern.h; path = ObjC/Modern.h; sourceTree = "<group>"; };
+		9884318E15E6BFD90057752B /* Modern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Modern.m; path = ObjC/Modern.m; sourceTree = "<group>"; };
+		98AE3F7715E6895D004CE0D4 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		98AE3F7815E6895D004CE0D4 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
+		98AE3F7B15E68DFF004CE0D4 /* Mode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mode.h; sourceTree = "<group>"; };
+		98AE3F7C15E68E95004CE0D4 /* SchemaMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchemaMode.h; sourceTree = "<group>"; };
+		98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchemaMode.m; sourceTree = "<group>"; };
 		FC024B5A15E5AEBC00368FEA /* DocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentWindowController.h; sourceTree = "<group>"; };
 		FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentWindowController.m; sourceTree = "<group>"; };
 		FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "modern-data-editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +67,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9884319115E6BFE00057752B /* Modern Data */ = {
+			isa = PBXGroup;
+			children = (
+				9884318D15E6BFD90057752B /* Modern.h */,
+				9884318E15E6BFD90057752B /* Modern.m */,
+			);
+			name = "Modern Data";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		98AE3F7F15E68EA7004CE0D4 /* Interaction */ = {
+			isa = PBXGroup;
+			children = (
+				98AE3F7715E6895D004CE0D4 /* Command.h */,
+				98AE3F7815E6895D004CE0D4 /* Command.m */,
+				98AE3F7B15E68DFF004CE0D4 /* Mode.h */,
+				98AE3F7C15E68E95004CE0D4 /* SchemaMode.h */,
+				98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */,
+			);
+			name = Interaction;
+			sourceTree = "<group>";
+		};
+		98AE3F8015E68EB6004CE0D4 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				FC7EF81E15E30FF8009A6BBC /* main.m */,
+				9814856015E552510026E714 /* AppDelegate.h */,
+				9814856115E552510026E714 /* AppDelegate.m */,
+				9814856315E555E50026E714 /* AdviceView.h */,
+				9814856415E555E50026E714 /* AdviceView.m */,
+				FC7EF82415E30FF8009A6BBC /* Document.h */,
+				FC7EF82515E30FF8009A6BBC /* Document.m */,
+				FC024B5A15E5AEBC00368FEA /* DocumentWindowController.h */,
+				FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */,
+				9814855D15E54F170026E714 /* DocumentView.h */,
+				9814855E15E54F170026E714 /* DocumentView.m */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
 		FC7EF80315E30FF8009A6BBC = {
 			isa = PBXGroup;
 			children = (
@@ -98,17 +148,9 @@
 		FC7EF81815E30FF8009A6BBC /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				FC7EF82415E30FF8009A6BBC /* Document.h */,
-				FC7EF82515E30FF8009A6BBC /* Document.m */,
-				FC024B5A15E5AEBC00368FEA /* DocumentWindowController.h */,
-				FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */,
-				FC7EF81E15E30FF8009A6BBC /* main.m */,
-				9814855D15E54F170026E714 /* DocumentView.h */,
-				9814855E15E54F170026E714 /* DocumentView.m */,
-				9814856015E552510026E714 /* AppDelegate.h */,
-				9814856115E552510026E714 /* AppDelegate.m */,
-				9814856315E555E50026E714 /* AdviceView.h */,
-				9814856415E555E50026E714 /* AdviceView.m */,
+				98AE3F8015E68EB6004CE0D4 /* GUI */,
+				98AE3F7F15E68EA7004CE0D4 /* Interaction */,
+				9884319115E6BFE00057752B /* Modern Data */,
 			);
 			name = Code;
 			path = ObjC;
@@ -206,6 +248,9 @@
 				9814856215E552510026E714 /* AppDelegate.m in Sources */,
 				9814856515E555E50026E714 /* AdviceView.m in Sources */,
 				FC024B5C15E5AEBC00368FEA /* DocumentWindowController.m in Sources */,
+				98AE3F7915E6895D004CE0D4 /* Command.m in Sources */,
+				98AE3F7E15E68E95004CE0D4 /* SchemaMode.m in Sources */,
+				9884318F15E6BFD90057752B /* Modern.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

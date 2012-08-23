@@ -8,6 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Document;
+@class DocumentWindowController;
+@protocol Mode;
 @interface DocumentView : NSView
+@property (strong, nonatomic) id <Mode> mode;
 
+- (id) initWithFrame: (NSRect) frame;
+- (Document *) document;
+- (DocumentWindowController *) documentWindowController;
+- (void) drawRect: (NSRect) dirtyRect;
+- (BOOL) acceptsFirstResponder;
+- (void) keyDown: (NSEvent *) event;
 @end
