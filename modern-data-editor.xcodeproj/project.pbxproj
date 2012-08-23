@@ -10,6 +10,7 @@
 		9814855F15E54F170026E714 /* DocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814855E15E54F170026E714 /* DocumentView.m */; };
 		9814856215E552510026E714 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856115E552510026E714 /* AppDelegate.m */; };
 		9814856515E555E50026E714 /* AdviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856415E555E50026E714 /* AdviceView.m */; };
+		FC024B5C15E5AEBC00368FEA /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */; };
 		FC7EF81315E30FF8009A6BBC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7EF81215E30FF8009A6BBC /* Cocoa.framework */; };
 		FC7EF81D15E30FF8009A6BBC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC7EF81B15E30FF8009A6BBC /* InfoPlist.strings */; };
 		FC7EF81F15E30FF8009A6BBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7EF81E15E30FF8009A6BBC /* main.m */; };
@@ -26,6 +27,8 @@
 		9814856115E552510026E714 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9814856315E555E50026E714 /* AdviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdviceView.h; sourceTree = "<group>"; };
 		9814856415E555E50026E714 /* AdviceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdviceView.m; sourceTree = "<group>"; };
+		FC024B5A15E5AEBC00368FEA /* DocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentWindowController.h; sourceTree = "<group>"; };
+		FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentWindowController.m; sourceTree = "<group>"; };
 		FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "modern-data-editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC7EF81215E30FF8009A6BBC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		FC7EF81515E30FF8009A6BBC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -97,6 +100,8 @@
 			children = (
 				FC7EF82415E30FF8009A6BBC /* Document.h */,
 				FC7EF82515E30FF8009A6BBC /* Document.m */,
+				FC024B5A15E5AEBC00368FEA /* DocumentWindowController.h */,
+				FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */,
 				FC7EF81E15E30FF8009A6BBC /* main.m */,
 				9814855D15E54F170026E714 /* DocumentView.h */,
 				9814855E15E54F170026E714 /* DocumentView.m */,
@@ -200,6 +205,7 @@
 				9814855F15E54F170026E714 /* DocumentView.m in Sources */,
 				9814856215E552510026E714 /* AppDelegate.m in Sources */,
 				9814856515E555E50026E714 /* AdviceView.m in Sources */,
+				FC024B5C15E5AEBC00368FEA /* DocumentWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,7 +308,6 @@
 				GCC_PREFIX_HEADER = Support/Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
 				PRODUCT_NAME = "modern-data-editor";
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -317,7 +322,6 @@
 				GCC_PREFIX_HEADER = Support/Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
 				PRODUCT_NAME = "modern-data-editor";
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

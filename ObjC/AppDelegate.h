@@ -12,10 +12,12 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 @property (strong, nonatomic) IBOutlet NSPanel *advicePanel;
 @property (strong, nonatomic) IBOutlet AdviceView *adviceView;
+@property (nonatomic) BOOL inFullScreenTransition;
 
 - (void) applicationDidFinishLaunching: (NSNotification *) notification;
 - (void) applicationDidBecomeActive: (NSNotification *) notification;
 - (void) hideAdviceWithNotification: (NSNotification *) notification;
+- (void) hideAdvice;
 - (void) showAdviceWithNotification: (NSNotification *) notification;
 - (void) showAdviceWithWindow: (NSWindow *) window;
 - (void) setAdvice: (NSString *) advice;

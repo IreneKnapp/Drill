@@ -8,6 +8,7 @@
 
 #import "Document.h"
 #import "AppDelegate.h"
+#import "DocumentWindowController.h"
 
 @implementation Document
 
@@ -19,22 +20,18 @@
 }
 
 
-- (NSString *) windowNibName {
-    return @"Document";
-}
-
-
 - (void) windowControllerDidLoadNib: (NSWindowController *) controller {
     [super windowControllerDidLoadNib: controller];
-    [(AppDelegate *) [NSApp delegate] showAdviceWithWindow: [self mainWindow]];
+    [(AppDelegate *) [NSApp delegate]
+    	showAdviceWithWindow: [controller window]];
 }
 
 
-- (void) windowDidResize: (NSNotification *) notification {
-    NSWindow *window = [notification object];
-    if([window isEqual: [self mainWindow]]) {
-        [(AppDelegate *) [NSApp delegate] showAdviceWithWindow: window];
-    }
+- (void) makeWindowControllers {
+	DocumentWindowController *mainWindowController =
+		[[DocumentWindowController alloc] init];
+	[self setMainWindow: [mainWindowController window]];
+	[self addWindowController: mainWindowController];
 }
 
 

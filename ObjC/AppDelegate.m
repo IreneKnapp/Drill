@@ -12,8 +12,9 @@
 
 @implementation AppDelegate
 
-
 - (void) applicationDidFinishLaunching: (NSNotification *) notification {
+	[self setInFullScreenTransition: NO];
+	
     [[self advicePanel] setOpaque: NO];
     [[self advicePanel] setBackgroundColor: [NSColor clearColor]];
     [[self advicePanel] setLevel: NSFloatingWindowLevel];
@@ -38,6 +39,11 @@
 
 
 - (void) hideAdviceWithNotification: (NSNotification *) notification {
+	[self hideAdvice];
+}
+
+
+- (void) hideAdvice {
     [[self advicePanel] orderOut: self];
 }
 
@@ -49,21 +55,32 @@
 
 
 - (void) showAdviceWithWindow: (NSWindow *) window {
-    NSPanel *panel = [self advicePanel];
-    
-    NSRect windowFrame = [window frame];
-    
-    NSRect adviceFrame = [panel frame];
-    adviceFrame.origin.x = windowFrame.origin.x + windowFrame.size.width;
-    adviceFrame.origin.y = windowFrame.origin.y + windowFrame.size.height
-        - adviceFrame.size.height;
-    
-    if([NSApp presentationOptions] & NSApplicationPresentationFullScreen) {
-        adviceFrame.origin.x -= adviceFrame.size.width;
+	NSWindowController *windowController = [window windowController];
+	if(!windowController) return;
+	
+	NSDocument *document = [windowController document];
+	if(!document) return;
+	
+	NSPanel *panel = [self advicePanel];
+	
+    if(![self inFullScreenTransition]) {
+		NSRect windowFrame = [window frame];
+		
+		NSRect adviceFrame = [panel frame];
+		adviceFrame.origin.x = windowFrame.origin.x + windowFrame.size.width;
+		adviceFrame.origin.y = windowFrame.origin.y + windowFrame.size.height
+			- adviceFrame.size.height;
+		
+		if(([window styleMask] & NSFullScreenWindowMask)
+		   == NSFullScreenWindowMask)
+		{
+			adviceFrame.origin.x -= adviceFrame.size.width;
+		}
+		
+		[panel setFrame: adviceFrame display: NO];
+    	[window addChildWindow: panel ordered: NSWindowAbove];
+		[document addWindowController: windowController];
     }
-    
-    [panel setFrame: adviceFrame display: NO];
-    [window addChildWindow: panel ordered: NSWindowAbove];
 }
 
 
