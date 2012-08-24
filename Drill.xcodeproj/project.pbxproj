@@ -13,6 +13,8 @@
 		9884318F15E6BFD90057752B /* Modern.m in Sources */ = {isa = PBXBuildFile; fileRef = 9884318E15E6BFD90057752B /* Modern.m */; };
 		98AE3F7915E6895D004CE0D4 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7815E6895D004CE0D4 /* Command.m */; };
 		98AE3F7E15E68E95004CE0D4 /* SchemaMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */; };
+		98BCF56515E8215F001C1CEB /* Application.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BCF56315E8215F001C1CEB /* Application.png */; };
+		98BCF56615E8215F001C1CEB /* Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 98BCF56415E8215F001C1CEB /* Document.png */; };
 		FC024B5C15E5AEBC00368FEA /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */; };
 		FC7EF81315E30FF8009A6BBC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7EF81215E30FF8009A6BBC /* Cocoa.framework */; };
 		FC7EF81D15E30FF8009A6BBC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC7EF81B15E30FF8009A6BBC /* InfoPlist.strings */; };
@@ -37,9 +39,11 @@
 		98AE3F7B15E68DFF004CE0D4 /* Mode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mode.h; sourceTree = "<group>"; };
 		98AE3F7C15E68E95004CE0D4 /* SchemaMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchemaMode.h; sourceTree = "<group>"; };
 		98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchemaMode.m; sourceTree = "<group>"; };
+		98BCF56315E8215F001C1CEB /* Application.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Application.png; sourceTree = "<group>"; };
+		98BCF56415E8215F001C1CEB /* Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Document.png; sourceTree = "<group>"; };
 		FC024B5A15E5AEBC00368FEA /* DocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentWindowController.h; sourceTree = "<group>"; };
 		FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentWindowController.m; sourceTree = "<group>"; };
-		FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "modern-data-editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC7EF80E15E30FF8009A6BBC /* Drill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drill.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC7EF81215E30FF8009A6BBC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		FC7EF81515E30FF8009A6BBC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		FC7EF81615E30FF8009A6BBC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -107,12 +111,22 @@
 			name = GUI;
 			sourceTree = "<group>";
 		};
+		98BCF56215E82147001C1CEB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				98BCF56315E8215F001C1CEB /* Application.png */,
+				98BCF56415E8215F001C1CEB /* Document.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FC7EF80315E30FF8009A6BBC = {
 			isa = PBXGroup;
 			children = (
 				FC7EF81815E30FF8009A6BBC /* Code */,
 				FC7EF83715E31076009A6BBC /* XIBs */,
 				FC7EF81915E30FF8009A6BBC /* Supporting Files */,
+				98BCF56215E82147001C1CEB /* Resources */,
 				FC7EF81115E30FF8009A6BBC /* Frameworks */,
 				FC7EF80F15E30FF8009A6BBC /* Products */,
 			);
@@ -121,7 +135,7 @@
 		FC7EF80F15E30FF8009A6BBC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */,
+				FC7EF80E15E30FF8009A6BBC /* Drill.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,9 +194,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FC7EF80D15E30FF8009A6BBC /* modern-data-editor */ = {
+		FC7EF80D15E30FF8009A6BBC /* Drill */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "modern-data-editor" */;
+			buildConfigurationList = FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "Drill" */;
 			buildPhases = (
 				FC7EF80A15E30FF8009A6BBC /* Sources */,
 				FC7EF80B15E30FF8009A6BBC /* Frameworks */,
@@ -192,9 +206,9 @@
 			);
 			dependencies = (
 			);
-			name = "modern-data-editor";
+			name = Drill;
 			productName = Med;
-			productReference = FC7EF80E15E30FF8009A6BBC /* modern-data-editor.app */;
+			productReference = FC7EF80E15E30FF8009A6BBC /* Drill.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -206,7 +220,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Irene Knapp";
 			};
-			buildConfigurationList = FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "modern-data-editor" */;
+			buildConfigurationList = FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "Drill" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -218,7 +232,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC7EF80D15E30FF8009A6BBC /* modern-data-editor */,
+				FC7EF80D15E30FF8009A6BBC /* Drill */,
 			);
 		};
 /* End PBXProject section */
@@ -232,6 +246,8 @@
 				FC7EF82315E30FF8009A6BBC /* Credits.rtf in Resources */,
 				FC7EF82915E30FF8009A6BBC /* Document.xib in Resources */,
 				FC7EF82C15E30FF8009A6BBC /* MainMenu.xib in Resources */,
+				98BCF56515E8215F001C1CEB /* Application.png in Resources */,
+				98BCF56615E8215F001C1CEB /* Document.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +368,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Support/Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
-				PRODUCT_NAME = "modern-data-editor";
+				PRODUCT_NAME = Drill;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -366,7 +382,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Support/Prefix.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
-				PRODUCT_NAME = "modern-data-editor";
+				PRODUCT_NAME = Drill;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -374,7 +390,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "modern-data-editor" */ = {
+		FC7EF80815E30FF8009A6BBC /* Build configuration list for PBXProject "Drill" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC7EF82D15E30FF8009A6BBC /* Debug */,
@@ -383,7 +399,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "modern-data-editor" */ = {
+		FC7EF82F15E30FF8009A6BBC /* Build configuration list for PBXNativeTarget "Drill" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC7EF83015E30FF8009A6BBC /* Debug */,
