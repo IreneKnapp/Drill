@@ -25,7 +25,8 @@
         NSNotificationCenter *notificationCenter =
             [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver: self
-                            selector: @selector(updateDocumentViewSizeWithNotification:)
+                            selector:
+                              @selector(updateDocumentViewSizeWithNotification:)
                             name: NSViewFrameDidChangeNotification
                             object: [self scrollView]];
     }
@@ -37,6 +38,7 @@
 	NSWindow *window = [self window];
 	NSRect frame = [window frame];
 	[self setSavedNonFullScreenFrame: frame];
+	[self setSavedNonFullScreenStyleMask: [window styleMask]];
 }
 
 
@@ -90,6 +92,7 @@
 		[(AppDelegate *) [NSApp delegate] setInFullScreenTransition: NO];
     	[window addChildWindow: advicePanel ordered: NSWindowAbove];
 		[document addWindowController: windowController];
+		[window setFrame: newFrame display: NO];
 	}];
 }
 
@@ -112,7 +115,9 @@
 	NSWindowController *windowController = [window windowController];
 	Document *document = [windowController document];
 	
-	NSRect newFrame = [self savedNonFullScreenFrame];
+	NSRect newFrame =
+		[NSWindow contentRectForFrameRect: [self savedNonFullScreenFrame]
+				  styleMask: [self savedNonFullScreenStyleMask]];
 	
 	NSRect newAdviceFrame = [advicePanel frame];
 	newAdviceFrame.origin.x = newFrame.origin.x + newFrame.size.width;
@@ -125,6 +130,8 @@
 		[(AppDelegate *) [NSApp delegate] setInFullScreenTransition: YES];
     	[window removeChildWindow: advicePanel];
     	[document removeWindowController: windowController];
+    	[advicePanel orderWindow: NSWindowAbove
+    				 relativeTo: [window windowNumber]];
     	
 		[animationContext setDuration: duration];
 		[[window animator] setFrame: newFrame display: YES];
@@ -133,6 +140,8 @@
 		[(AppDelegate *) [NSApp delegate] setInFullScreenTransition: NO];
     	[window addChildWindow: advicePanel ordered: NSWindowAbove];
 		[document addWindowController: windowController];
+		[window setFrame: [window frameRectForContentRect: newFrame]
+				display: NO];
 	}];
 }
 

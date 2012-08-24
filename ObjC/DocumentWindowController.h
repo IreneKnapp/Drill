@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet NSScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet DocumentView *documentView;
 @property (nonatomic) NSRect savedNonFullScreenFrame;
+@property (nonatomic) NSUInteger savedNonFullScreenStyleMask;
 @property (strong, nonatomic) NSMutableArray *adviceItems;
 
 - (id) initWithMode: (id <Mode>) mode;
