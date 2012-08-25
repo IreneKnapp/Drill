@@ -47,15 +47,25 @@
 
 
 - (NSData *) dataOfType: (NSString *) typeName error: (NSError **) outError {
+/*
     NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
     @throw exception;
     return nil;
+    */
+    NSLog(@"type name %@", typeName);
+    NSMutableData *data = [NSMutableData dataWithCapacity: 1];
+    uint8_t buffer[1];
+    buffer[0] = 42;
+    [data appendBytes: buffer length: sizeof(buffer)];
+    return data;
 }
 
 
 - (BOOL) readFromData: (NSData *) data ofType: (NSString *) typeName error: (NSError **) outError {
+/*
     NSException *exception = [NSException exceptionWithName:@"UnimplementedMethod" reason:[NSString stringWithFormat:@"%@ is unimplemented", NSStringFromSelector(_cmd)] userInfo:nil];
     @throw exception;
+    */
     return YES;
 }
 
