@@ -9,6 +9,7 @@
 #import "DocumentView.h"
 #import "Document.h"
 #import "DocumentWindowController.h"
+#import "ModernPresentation.h"
 
 @implementation DocumentView
 
@@ -47,8 +48,16 @@
     [[NSColor colorWithDeviceRed: 0.84 green: 0.87 blue: 8.90 alpha: 1.0] set];
     [NSBezierPath fillRect: dirtyRect];
     
+    [self drawPresentation: [[self document] schemaPresentation]
+    	  inRect: dirtyRect];
+}
+
+
+- (void) drawPresentation: (ModernPresentation *) presentation
+		 inRect: (NSRect) dirtyRect
+{
     NSString *string =
-        [NSString stringWithFormat: @"%lu",
+        [NSString stringWithFormat: @"%lu\nfoo",
             (unsigned long) [[[self document] schemaNodes] count]];
     NSDictionary *attributes = [NSDictionary dictionary];
     [string drawInRect: [self bounds]

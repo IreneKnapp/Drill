@@ -23,6 +23,8 @@
 		FC7EF82615E30FF8009A6BBC /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7EF82515E30FF8009A6BBC /* Document.m */; };
 		FC7EF82915E30FF8009A6BBC /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7EF82715E30FF8009A6BBC /* Document.xib */; };
 		FC7EF82C15E30FF8009A6BBC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7EF82A15E30FF8009A6BBC /* MainMenu.xib */; };
+		FCA21A5015E9974B009727B8 /* ModernPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA21A4F15E9974B009727B8 /* ModernPresentation.m */; };
+		FCA21A5415E99D7D009727B8 /* ModernStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA21A5315E99D7D009727B8 /* ModernStyle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,10 @@
 		FC7EF82515E30FF8009A6BBC /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		FC7EF83915E312D1009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Document.xib; sourceTree = "<group>"; };
 		FC7EF83A15E312EE009A6BBC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FCA21A4E15E9974B009727B8 /* ModernPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernPresentation.h; path = ObjC/ModernPresentation.h; sourceTree = "<group>"; };
+		FCA21A4F15E9974B009727B8 /* ModernPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernPresentation.m; path = ObjC/ModernPresentation.m; sourceTree = "<group>"; };
+		FCA21A5215E99D7D009727B8 /* ModernStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyle.h; path = ObjC/ModernStyle.h; sourceTree = "<group>"; };
+		FCA21A5315E99D7D009727B8 /* ModernStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyle.m; path = ObjC/ModernStyle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +82,10 @@
 			children = (
 				9884318D15E6BFD90057752B /* Modern.h */,
 				9884318E15E6BFD90057752B /* Modern.m */,
+				FCA21A4E15E9974B009727B8 /* ModernPresentation.h */,
+				FCA21A4F15E9974B009727B8 /* ModernPresentation.m */,
+				FCA21A5215E99D7D009727B8 /* ModernStyle.h */,
+				FCA21A5315E99D7D009727B8 /* ModernStyle.m */,
 			);
 			name = "Modern Data";
 			path = ..;
@@ -267,6 +277,8 @@
 				98AE3F7915E6895D004CE0D4 /* Command.m in Sources */,
 				98AE3F7E15E68E95004CE0D4 /* SchemaMode.m in Sources */,
 				9884318F15E6BFD90057752B /* Modern.m in Sources */,
+				FCA21A5015E9974B009727B8 /* ModernPresentation.m in Sources */,
+				FCA21A5415E99D7D009727B8 /* ModernStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

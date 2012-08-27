@@ -10,6 +10,7 @@
 
 @class Document;
 @class DocumentWindowController;
+@class ModernPresentation;
 @protocol Mode;
 @interface DocumentView : NSView
 @property (strong, nonatomic) id <Mode> mode;
@@ -18,6 +19,8 @@
 - (Document *) document;
 - (DocumentWindowController *) documentWindowController;
 - (void) drawRect: (NSRect) dirtyRect;
+- (void) drawPresentation: (ModernPresentation *) presentation
+		 inRect: (NSRect) dirtyRect;
 - (BOOL) acceptsFirstResponder;
 - (void) keyDown: (NSEvent *) event;
 @end

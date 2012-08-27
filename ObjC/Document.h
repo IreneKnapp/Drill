@@ -9,12 +9,13 @@
 #import <Cocoa/Cocoa.h>
 
 @class Modern;
+@class ModernPresentation;
 @interface Document : NSDocument {
     NSMutableArray *_schemaNodes;
-    NSMutableArray *_valueNodes;
 }
 @property (strong, nonatomic) NSWindow *mainWindow;
 @property (strong, nonatomic) NSMutableArray *adviceItems;
+@property (strong, nonatomic) ModernPresentation *schemaPresentation;
 
 - (id) init;
 - (void) windowControllerDidLoadNib: (NSWindowController *) controller;

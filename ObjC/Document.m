@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "DocumentWindowController.h"
 #import "Modern.h"
+#import "ModernPresentation.h"
 
 @implementation Document
 
@@ -17,7 +18,6 @@
     self = [super init];
     if (self) {
         _schemaNodes = [NSMutableArray arrayWithCapacity: 128];
-        _valueNodes = [NSMutableArray arrayWithCapacity: 128];
     }
     return self;
 }
@@ -26,18 +26,18 @@
 - (void) windowControllerDidLoadNib: (NSWindowController *) controller {
     [super windowControllerDidLoadNib: controller];
     [(AppDelegate *) [NSApp delegate]
-    	showAdviceWithWindow: [controller window]];
+        showAdviceWithWindow: [controller window]];
 }
 
 
 - (void) makeWindowControllers {
-	DocumentWindowController *mainWindowController =
-		[[DocumentWindowController alloc]
-		    initWithMode: [(AppDelegate *) [NSApp delegate] schemaMode]];
-	[self setMainWindow: [mainWindowController window]];
-	[self addWindowController: mainWindowController];
-	[mainWindowController updateAdvice];
-	[(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+    DocumentWindowController *mainWindowController =
+        [[DocumentWindowController alloc]
+            initWithMode: [(AppDelegate *) [NSApp delegate] schemaMode]];
+    [self setMainWindow: [mainWindowController window]];
+    [self addWindowController: mainWindowController];
+    [mainWindowController updateAdvice];
+    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
 }
 
 
@@ -77,6 +77,16 @@
 
 - (void) addSchemaNode: (Modern *) node {
     [_schemaNodes addObject: node];
+    
+    if(![self schemaPresentation]) {
+        [self setSchemaPresentation:
+                [[ModernPresentation alloc] initWithNode: nil]];
+    }
+    
+    ModernPresentation *presentation =
+        [[ModernPresentation alloc] initWithNode: node];
+    [[[self schemaPresentation] children] addObject: presentation];
+    
     [(DocumentWindowController *) [[self mainWindow] windowController]
         updateDocumentContent];
 }
