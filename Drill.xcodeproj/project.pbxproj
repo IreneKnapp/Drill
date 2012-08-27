@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980FDABF15EBE14100380D53 /* LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 980FDABE15EBE14100380D53 /* LayoutManager.m */; };
+		980FDAC215EBE8B900380D53 /* PrimitiveBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 980FDAC115EBE8B900380D53 /* PrimitiveBox.m */; };
+		980FDAC515EBE8C300380D53 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 980FDAC415EBE8C300380D53 /* Glue.m */; };
+		980FDAC915EBFC6900380D53 /* HorizontalBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 980FDAC815EBFC6900380D53 /* HorizontalBox.m */; };
 		9814855F15E54F170026E714 /* DocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814855E15E54F170026E714 /* DocumentView.m */; };
 		9814856215E552510026E714 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856115E552510026E714 /* AppDelegate.m */; };
 		9814856515E555E50026E714 /* AdviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856415E555E50026E714 /* AdviceView.m */; };
@@ -28,6 +32,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		980FDABD15EBE14100380D53 /* LayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutManager.h; sourceTree = "<group>"; };
+		980FDABE15EBE14100380D53 /* LayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutManager.m; sourceTree = "<group>"; };
+		980FDAC015EBE8B900380D53 /* PrimitiveBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimitiveBox.h; sourceTree = "<group>"; };
+		980FDAC115EBE8B900380D53 /* PrimitiveBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimitiveBox.m; sourceTree = "<group>"; };
+		980FDAC315EBE8C300380D53 /* Glue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Glue.h; sourceTree = "<group>"; };
+		980FDAC415EBE8C300380D53 /* Glue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Glue.m; sourceTree = "<group>"; };
+		980FDAC615EBFBC400380D53 /* Box.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Box.h; sourceTree = "<group>"; };
+		980FDAC715EBFC6900380D53 /* HorizontalBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalBox.h; sourceTree = "<group>"; };
+		980FDAC815EBFC6900380D53 /* HorizontalBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalBox.m; sourceTree = "<group>"; };
 		9814855D15E54F170026E714 /* DocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentView.h; sourceTree = "<group>"; };
 		9814855E15E54F170026E714 /* DocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentView.m; sourceTree = "<group>"; };
 		9814856015E552510026E714 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -77,6 +90,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980FDABB15EBE12900380D53 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				980FDABD15EBE14100380D53 /* LayoutManager.h */,
+				980FDABE15EBE14100380D53 /* LayoutManager.m */,
+				980FDAC615EBFBC400380D53 /* Box.h */,
+				980FDAC015EBE8B900380D53 /* PrimitiveBox.h */,
+				980FDAC115EBE8B900380D53 /* PrimitiveBox.m */,
+				980FDAC715EBFC6900380D53 /* HorizontalBox.h */,
+				980FDAC815EBFC6900380D53 /* HorizontalBox.m */,
+				980FDAC315EBE8C300380D53 /* Glue.h */,
+				980FDAC415EBE8C300380D53 /* Glue.m */,
+			);
+			name = Presentation;
+			sourceTree = "<group>";
+		};
 		9884319115E6BFE00057752B /* Modern Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +203,7 @@
 			children = (
 				98AE3F8015E68EB6004CE0D4 /* GUI */,
 				98AE3F7F15E68EA7004CE0D4 /* Interaction */,
+				980FDABB15EBE12900380D53 /* Presentation */,
 				9884319115E6BFE00057752B /* Modern Data */,
 			);
 			name = Code;
@@ -279,6 +309,10 @@
 				9884318F15E6BFD90057752B /* Modern.m in Sources */,
 				FCA21A5015E9974B009727B8 /* ModernPresentation.m in Sources */,
 				FCA21A5415E99D7D009727B8 /* ModernStyle.m in Sources */,
+				980FDABF15EBE14100380D53 /* LayoutManager.m in Sources */,
+				980FDAC215EBE8B900380D53 /* PrimitiveBox.m in Sources */,
+				980FDAC515EBE8C300380D53 /* Glue.m in Sources */,
+				980FDAC915EBFC6900380D53 /* HorizontalBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

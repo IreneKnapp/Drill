@@ -10,10 +10,13 @@
 
 @implementation ModernStyle
 
-- (id) initWithParent: (ModernStyle *) parent {
+- (id) initWithParent: (ModernStyle *) parent
+       container: (ModernStyle *) container
+{
 	self = [super init];
 	if(self) {
 		[self setParent: parent];
+		[self setContainer: container];
 		_displaySet = NO;
 	}
 	return self;
@@ -36,16 +39,25 @@
 }
 
 
-- (ModernStyleDisplay) display {
-	if(_displaySet) return _display;
-	if([self parent]) return [[self parent] display];
-	return noneModernStyleDisplay;
++ (ModernStyleDisplay) defaultDisplay {
+    return noneModernStyleDisplay;
 }
 
 
-- (ModernStyleDisplay) computedDisplay: (ModernStyle *) inherited {
+- (ModernStyleDisplay) display {
+	if(_displaySet) return _display;
+	if([self parent]) return [[self parent] display];
+	return [[self class] defaultDisplay];
+}
+
+
+- (ModernStyleDisplay) computedDisplay {
 	ModernStyleDisplay local = [self display];
-	if(local == inheritModernStyleDisplay) return [inherited display];
+	if(local == inheritModernStyleDisplay) {
+	    ModernStyle *container = [self container];
+	    if(container) return [container computedDisplay];
+	    else return [[self class] defaultDisplay];
+	}
 	else return local;
 }
 

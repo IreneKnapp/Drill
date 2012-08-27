@@ -9,6 +9,7 @@
 #import "DocumentView.h"
 #import "Document.h"
 #import "DocumentWindowController.h"
+#import "LayoutManager.h"
 #import "ModernPresentation.h"
 
 @implementation DocumentView
@@ -16,10 +17,9 @@
 - (id) initWithFrame: (NSRect) frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
+    if(self) {
+        _schemaLayoutManager = nil;
     }
-    
     return self;
 }
 
@@ -45,28 +45,14 @@
 
 - (void) drawRect: (NSRect) dirtyRect
 {
-    [[NSColor colorWithDeviceRed: 0.84 green: 0.87 blue: 8.90 alpha: 1.0] set];
-    [NSBezierPath fillRect: dirtyRect];
+    if(!_schemaLayoutManager) {
+        _schemaLayoutManager =
+            [[LayoutManager alloc] initWithPresentation:
+                [[self document] schemaPresentation]];
+        [_schemaLayoutManager appendCharacters: "foo" count: 3];
+    }
     
-    [self drawPresentation: [[self document] schemaPresentation]
-    	  inRect: dirtyRect];
-}
-
-
-- (void) drawPresentation: (ModernPresentation *) presentation
-		 inRect: (NSRect) dirtyRect
-{
-    NSString *string =
-        [NSString stringWithFormat: @"%lu\nfoo",
-            (unsigned long) [[[self document] schemaNodes] count]];
-    NSDictionary *attributes = [NSDictionary dictionary];
-    [string drawInRect: [self bounds]
-            withAttributes: attributes];
-    /*
-    [[NSColor blackColor] set];
-    [NSBezierPath setDefaultLineWidth: 10.0];
-    [NSBezierPath strokeRect: [self bounds]];
-    */
+    [_schemaLayoutManager draw: dirtyRect];
 }
 
 

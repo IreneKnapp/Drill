@@ -10,17 +10,18 @@
 
 @class Document;
 @class DocumentWindowController;
+@class LayoutManager;
 @class ModernPresentation;
 @protocol Mode;
-@interface DocumentView : NSView
+@interface DocumentView : NSView {
+    LayoutManager *_schemaLayoutManager;
+}
 @property (strong, nonatomic) id <Mode> mode;
 
 - (id) initWithFrame: (NSRect) frame;
 - (Document *) document;
 - (DocumentWindowController *) documentWindowController;
 - (void) drawRect: (NSRect) dirtyRect;
-- (void) drawPresentation: (ModernPresentation *) presentation
-		 inRect: (NSRect) dirtyRect;
 - (BOOL) acceptsFirstResponder;
 - (void) keyDown: (NSEvent *) event;
 @end

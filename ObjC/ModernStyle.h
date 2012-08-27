@@ -21,11 +21,14 @@ typedef enum {
 	ModernStyleDisplay _display;
 }
 @property (strong, nonatomic) ModernStyle *parent;
+@property (strong, nonatomic) ModernStyle *container;
 
-- (id) initWithParent: (ModernStyle *) parent;
+- (id) initWithParent: (ModernStyle *) parent
+       container: (ModernStyle *) container;
 - (BOOL) displayIsSet;
 - (void) unsetDisplay;
 - (void) setDisplay: (ModernStyleDisplay) display;
++ (ModernStyleDisplay) defaultDisplay;
 - (ModernStyleDisplay) display;
-- (ModernStyleDisplay) computedDisplay: (ModernStyle *) inherited;
+- (ModernStyleDisplay) computedDisplay;
 @end

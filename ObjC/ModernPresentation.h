@@ -10,16 +10,11 @@
 
 @class Modern;
 @class ModernStyle;
-@interface ModernPresentation : NSObject {
-	BOOL _layoutValid;
-	NSRect _bounds;
-}
+@interface ModernPresentation : NSObject
 @property (strong, nonatomic) Modern *node;
 @property (strong, nonatomic) NSMutableArray *children;
 @property (strong, nonatomic) ModernPresentation *parent;
 @property (strong, nonatomic) ModernStyle *style;
 
 - (id) initWithNode: (Modern *) node;
-- (void) invalidateLayout;
-- (void) setBounds: (NSRect) bounds;
 @end
