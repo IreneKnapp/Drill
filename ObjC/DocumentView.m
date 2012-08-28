@@ -1,6 +1,6 @@
 //
 //  DocumentView.m
-//  modern-data-editor
+//  Drill
 //
 //  Created by Irene Knapp on 8/22/12.
 //  Copyright (c) 2012 Irene Knapp. All rights reserved.
@@ -49,7 +49,11 @@
         _schemaLayoutManager =
             [[LayoutManager alloc] initWithPresentation:
                 [[self document] schemaPresentation]];
-        [_schemaLayoutManager appendCharacters: "foo" count: 3];
+        unichar characters[3];
+        characters[0] = 'f';
+        characters[1] = 'o';
+        characters[2] = 'o';
+        [_schemaLayoutManager appendCharacters: characters count: 3];
     }
     
     [_schemaLayoutManager draw: dirtyRect];

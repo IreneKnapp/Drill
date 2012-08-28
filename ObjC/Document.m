@@ -85,7 +85,7 @@
     
     ModernPresentation *presentation =
         [[ModernPresentation alloc] initWithNode: node];
-    [[[self schemaPresentation] children] addObject: presentation];
+    [[self schemaPresentation] addChild: presentation];
     
     [(DocumentWindowController *) [[self mainWindow] windowController]
         updateDocumentContent];

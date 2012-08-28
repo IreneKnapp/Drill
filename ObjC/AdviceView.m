@@ -1,6 +1,6 @@
 //
 //  AdviceView.m
-//  modern-data-editor
+//  Drill
 //
 //  Created by Irene Knapp on 8/22/12.
 //  Copyright (c) 2012 Irene Knapp. All rights reserved.

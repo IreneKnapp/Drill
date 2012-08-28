@@ -10,11 +10,18 @@
 
 @class Modern;
 @class ModernStyle;
-@interface ModernPresentation : NSObject
+@interface ModernPresentation : NSObject {
+	NSMutableArray *_children;
+	ModernPresentation *_parent;
+}
 @property (strong, nonatomic) Modern *node;
-@property (strong, nonatomic) NSMutableArray *children;
-@property (strong, nonatomic) ModernPresentation *parent;
 @property (strong, nonatomic) ModernStyle *style;
 
 - (id) initWithNode: (Modern *) node;
+- (NSArray *) children;
+- (void) addChild: (ModernPresentation *) child;
+- (void) addChild: (ModernPresentation *) child
+         atIndex: (NSUInteger) index;
+- (ModernPresentation *) getParent;
+- (void) setParent: (ModernPresentation *) parent;
 @end

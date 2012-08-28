@@ -18,6 +18,7 @@
 		98AE3F7915E6895D004CE0D4 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7815E6895D004CE0D4 /* Command.m */; };
 		98AE3F7E15E68E95004CE0D4 /* SchemaMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */; };
 		FC024B5C15E5AEBC00368FEA /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */; };
+		FC382B8915EC55E700AEA2A8 /* VerticalBox.m in Sources */ = {isa = PBXBuildFile; fileRef = FC382B8815EC55E700AEA2A8 /* VerticalBox.m */; };
 		FC68D56115E9294D0050BADE /* Application.iconset in Resources */ = {isa = PBXBuildFile; fileRef = FC68D56015E9294D0050BADE /* Application.iconset */; };
 		FC68D56315E92C680050BADE /* Document.iconset in Resources */ = {isa = PBXBuildFile; fileRef = FC68D56215E92C680050BADE /* Document.iconset */; };
 		FC7EF81315E30FF8009A6BBC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7EF81215E30FF8009A6BBC /* Cocoa.framework */; };
@@ -56,6 +57,8 @@
 		98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchemaMode.m; sourceTree = "<group>"; };
 		FC024B5A15E5AEBC00368FEA /* DocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentWindowController.h; sourceTree = "<group>"; };
 		FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentWindowController.m; sourceTree = "<group>"; };
+		FC382B8715EC55E700AEA2A8 /* VerticalBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalBox.h; sourceTree = "<group>"; };
+		FC382B8815EC55E700AEA2A8 /* VerticalBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalBox.m; sourceTree = "<group>"; };
 		FC68D56015E9294D0050BADE /* Application.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Application.iconset; sourceTree = "<group>"; };
 		FC68D56215E92C680050BADE /* Document.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Document.iconset; sourceTree = "<group>"; };
 		FC7EF80E15E30FF8009A6BBC /* Drill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drill.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +103,8 @@
 				980FDAC115EBE8B900380D53 /* PrimitiveBox.m */,
 				980FDAC715EBFC6900380D53 /* HorizontalBox.h */,
 				980FDAC815EBFC6900380D53 /* HorizontalBox.m */,
+				FC382B8715EC55E700AEA2A8 /* VerticalBox.h */,
+				FC382B8815EC55E700AEA2A8 /* VerticalBox.m */,
 				980FDAC315EBE8C300380D53 /* Glue.h */,
 				980FDAC415EBE8C300380D53 /* Glue.m */,
 			);
@@ -313,6 +318,7 @@
 				980FDAC215EBE8B900380D53 /* PrimitiveBox.m in Sources */,
 				980FDAC515EBE8C300380D53 /* Glue.m in Sources */,
 				980FDAC915EBFC6900380D53 /* HorizontalBox.m in Sources */,
+				FC382B8915EC55E700AEA2A8 /* VerticalBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

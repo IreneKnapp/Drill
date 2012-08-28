@@ -1,6 +1,6 @@
 //
 //  main.m
-//  Med
+//  Drill
 //
 //  Created by Irene Knapp on 8/20/12.
 //  Copyright (c) 2012 Irene Knapp. All rights reserved.

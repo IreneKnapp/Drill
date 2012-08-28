@@ -9,6 +9,7 @@
 #import "LayoutManager.h"
 #import "HorizontalBox.h"
 #import "PrimitiveBox.h"
+#import "VerticalBox.h"
 
 @implementation LayoutManager
 
@@ -45,6 +46,7 @@
 
 
 - (void) recomputeLayout {
+	VerticalBox *verticalBox = [[VerticalBox alloc] init];
     HorizontalBox *horizontalBox = [[HorizontalBox alloc] init];
     BOOL ignore_spaces = YES;
     for(size_t i = 0; i < _characterBufferCount; i++) {
@@ -54,6 +56,8 @@
                 ignore_spaces = YES;
             }
         } else if(character == '\n') {
+        	[verticalBox appendBox: horizontalBox];
+        	horizontalBox = [[HorizontalBox alloc] init];
             ignore_spaces = YES;
         } else {
             PrimitiveBox *primitiveBox =
@@ -74,9 +78,10 @@
             ignore_spaces = NO;
         }
     }
+	[verticalBox appendBox: horizontalBox];
     
     _layoutValid = YES;
-    _box = horizontalBox;
+    _box = verticalBox;
 }
 
 
