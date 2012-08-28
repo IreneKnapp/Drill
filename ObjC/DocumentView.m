@@ -56,7 +56,7 @@
         [_schemaLayoutManager appendCharacters: characters count: 3];
     }
     
-    [_schemaLayoutManager draw: dirtyRect];
+    [_schemaLayoutManager draw: dirtyRect inBounds: [self bounds]];
 }
 
 

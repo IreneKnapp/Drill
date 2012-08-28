@@ -19,15 +19,10 @@
     if(self) {
         _ascent = ascent;
         _descent = descent;
-        _width = width;
+        _baseWidth = width;
         _draw = draw;
     }
     return self;
-}
-
-
-- (CGFloat) height {
-    return _ascent + _descent;
 }
 
 
@@ -41,8 +36,33 @@
 }
 
 
-- (CGFloat) width {
-    return _width;
+- (CGFloat) baseWidth {
+    return _baseWidth;
+}
+
+
+- (CGFloat) packedWidth {
+	return _packedWidth;
+}
+
+
+- (void) setPackedWidth: (CGFloat) packedWidth {
+	_packedWidth = packedWidth;
+}
+
+
+- (CGFloat) baseHeight {
+    return _ascent + _descent;
+}
+
+
+- (CGFloat) packedHeight {
+	return _packedHeight;
+}
+
+
+- (void) setPackedHeight: (CGFloat) packedHeight {
+	_packedHeight = packedHeight;
 }
 
 

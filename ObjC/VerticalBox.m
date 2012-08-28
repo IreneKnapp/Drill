@@ -15,18 +15,14 @@
     self = [super init];
     if(self) {
         _boxesAndGlue = [NSMutableArray arrayWithCapacity: 16];
-        _width = 0.0;
         _stretch = 0.0;
         _shrink = 0.0;
+        _baseWidth = 0.0;
+        _packedWidth = 0.0;
         _baseHeight = 0.0;
         _packedHeight = 0.0;
     }
     return self;
-}
-
-
-- (CGFloat) height {
-    return _packedHeight;
 }
 
 
@@ -37,11 +33,6 @@
 
 - (CGFloat) descent {
     return 0.0;
-}
-
-
-- (CGFloat) width {
-    return _width;
 }
 
 
@@ -70,12 +61,27 @@
 }
 
 
+- (CGFloat) baseWidth {
+    return _baseWidth;
+}
+
+
+- (CGFloat) packedWidth {
+	return _packedWidth;
+}
+
+
+- (void) setPackedWidth: (CGFloat) packedWidth {
+	packedWidth = _packedWidth;
+}
+
+
 - (void) appendBox: (id <Box>) box {
-    CGFloat boxHeight = [box height];
-    CGFloat boxWidth = [box width];
+    CGFloat boxHeight = [box packedHeight];
+    CGFloat boxWidth = [box packedWidth];
     
     _baseHeight += boxHeight;
-    if(boxWidth > _width) _width = boxWidth;
+    if(boxWidth > _baseWidth) _baseWidth = boxWidth;
     
     [_boxesAndGlue addObject: box];
 }
@@ -94,8 +100,18 @@
 }
 
 
+- (void) fixContentWidths {
+    for(id boxOrGlue in _boxesAndGlue) {
+        if([boxOrGlue conformsToProtocol: @protocol(Box)]) {
+        	id <Box> box = (id <Box>) boxOrGlue;
+        	
+        	[box setPackedWidth: _packedWidth];
+        }
+    }
+}
+
+
 - (void) draw: (NSPoint) origin {
-    NSLog(@"drawing vbox at %lf, %lf", origin.x, origin.y);
     CGFloat adjustment = _packedHeight - _baseHeight;
     if(adjustment > 0.0) {
         adjustment /= _stretch;
@@ -109,7 +125,7 @@
             
             [box draw: origin];
             
-            origin.y -= [box height];
+            origin.y -= [box packedHeight];
         } else if([boxOrGlue isKindOfClass: [Glue class]]) {
             Glue *glue = (Glue *) boxOrGlue;
             

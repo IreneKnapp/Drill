@@ -10,9 +10,13 @@
 
 @protocol Box <NSObject>
 
-- (CGFloat) height;
 - (CGFloat) ascent;
 - (CGFloat) descent;
-- (CGFloat) width;
+- (CGFloat) baseWidth;
+- (CGFloat) packedWidth;
+- (void) setPackedWidth: (CGFloat) packedWidth;
+- (CGFloat) baseHeight;
+- (CGFloat) packedHeight;
+- (void) setPackedHeight: (CGFloat) packedHeight;
 - (void) draw: (NSPoint) origin;
 @end

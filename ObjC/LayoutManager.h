@@ -23,5 +23,5 @@
 - (id) initWithPresentation: (ModernPresentation *) rootPresentation;
 - (void) appendCharacters: (unichar *) characters count: (size_t) count;
 - (void) recomputeLayout;
-- (void) draw: (NSRect) dirtyRect;
+- (void) draw: (NSRect) dirtyRect inBounds: (NSRect) bounds;
 @end

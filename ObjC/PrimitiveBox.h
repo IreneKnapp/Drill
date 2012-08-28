@@ -12,7 +12,9 @@
 @interface PrimitiveBox : NSObject <Box> {
     CGFloat _ascent;
     CGFloat _descent;
-    CGFloat _width;
+    CGFloat _baseWidth;
+    CGFloat _packedWidth;
+    CGFloat _packedHeight;
     void (^_draw)(NSPoint origin);
 }
 
@@ -20,9 +22,13 @@
        descent: (CGFloat) descent
        width: (CGFloat) width
        draw: (void (^)(NSPoint origin)) draw;
-- (CGFloat) height;
 - (CGFloat) ascent;
 - (CGFloat) descent;
-- (CGFloat) width;
+- (CGFloat) baseWidth;
+- (CGFloat) packedWidth;
+- (void) setPackedWidth: (CGFloat) packedWidth;
+- (CGFloat) baseHeight;
+- (CGFloat) packedHeight;
+- (void) setPackedHeight: (CGFloat) packedHeight;
 - (void) draw: (NSPoint) origin;
 @end

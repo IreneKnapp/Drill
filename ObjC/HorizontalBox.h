@@ -12,24 +12,27 @@
 @class Glue;
 @interface HorizontalBox : NSObject <Box> {
     NSMutableArray *_boxesAndGlue;
+    NSUInteger _nInfiniteGlues;
     CGFloat _ascent;
     CGFloat _descent;
     CGFloat _baseWidth;
     CGFloat _stretch;
     CGFloat _shrink;
-    CGFloat _justifiedWidth;
+    CGFloat _packedWidth;
+    CGFloat _packedHeight;
 }
 
 - (id) init;
-- (CGFloat) height;
 - (CGFloat) ascent;
 - (CGFloat) descent;
-- (CGFloat) width;
 - (CGFloat) stretch;
 - (CGFloat) shrink;
 - (CGFloat) baseWidth;
-- (CGFloat) justifiedWidth;
-- (void) setJustifiedWidth: (CGFloat) justifiedWidth;
+- (CGFloat) packedWidth;
+- (void) setPackedWidth: (CGFloat) packedWidth;
+- (CGFloat) baseHeight;
+- (CGFloat) packedHeight;
+- (void) setPackedHeight: (CGFloat) packedHeight;
 - (void) appendBox: (id <Box>) box;
 - (void) appendGlue: (Glue *) glue;
 - (void) draw: (NSPoint) origin;
