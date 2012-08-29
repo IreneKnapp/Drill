@@ -18,6 +18,7 @@
 		[self setParent: parent];
 		[self setContainer: container];
 		_displaySet = NO;
+		_textAlignmentSet = NO;
 	}
 	return self;
 }
@@ -40,7 +41,7 @@
 
 
 + (ModernStyleDisplay) defaultDisplay {
-    return noneModernStyleDisplay;
+    return NoneModernStyleDisplay;
 }
 
 
@@ -53,10 +54,49 @@
 
 - (ModernStyleDisplay) computedDisplay {
 	ModernStyleDisplay local = [self display];
-	if(local == inheritModernStyleDisplay) {
+	if(local == InheritModernStyleDisplay) {
 	    ModernStyle *container = [self container];
 	    if(container) return [container computedDisplay];
 	    else return [[self class] defaultDisplay];
+	}
+	else return local;
+}
+
+
+- (BOOL) textAlignmentIsSet {
+    return _textAlignmentSet;
+}
+
+
+- (void) unsetTextAlignment {
+    _textAlignmentSet = NO;
+}
+
+
+- (void) setTextAlignment: (ModernStyleTextAlignment) textAlignment {
+    _textAlignmentSet = YES;
+    _textAlignment = textAlignment;
+}
+
+
++ (ModernStyleTextAlignment) defaultTextAlignment {
+    return LeftModernStyleTextAlignment;
+}
+
+
+- (ModernStyleTextAlignment) textAlignment {
+	if(_textAlignmentSet) return _textAlignment;
+	if([self parent]) return [[self parent] textAlignment];
+	return [[self class] defaultTextAlignment];
+}
+
+
+- (ModernStyleTextAlignment) computedTextAlignment {
+	ModernStyleTextAlignment local = [self textAlignment];
+	if(local == InheritModernStyleTextAlignment) {
+	    ModernStyle *container = [self container];
+	    if(container) return [container computedTextAlignment];
+	    else return [[self class] defaultTextAlignment];
 	}
 	else return local;
 }

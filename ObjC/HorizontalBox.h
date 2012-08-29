@@ -20,6 +20,8 @@
     CGFloat _shrink;
     CGFloat _packedWidth;
     CGFloat _packedHeight;
+    BOOL _adjustmentValid;
+    CGFloat _adjustment;
 }
 
 - (id) init;
@@ -36,4 +38,5 @@
 - (void) appendBox: (id <Box>) box;
 - (void) appendGlue: (Glue *) glue;
 - (void) draw: (NSPoint) origin;
+- (void) recomputeAdjustment;
 @end

@@ -19,9 +19,35 @@
     if(self) {
         _rootPresentation = rootPresentation;
         _layoutValid = NO;
+        _wrapWidth = 0.0;
+        NSString *fontName = @"LucidaGrande";
+        _font = CTFontCreateWithName((__bridge CFStringRef) fontName, 14.0, NULL);
+        if(!_font) {
+            NSLog(@"No font named %@.", fontName);
+            return nil;
+        }
+        
         _characterBufferCount = 0;
         _characterBufferCapacity = 1024;
         _characterBuffer = malloc(sizeof(unichar) * _characterBufferCapacity);
+        
+        _glyphBufferCount = 0;
+        _glyphBufferCapacity = 1024;
+        _glyphBuffer = malloc(sizeof(CGGlyph) * _glyphBufferCapacity);
+        
+        _lineFragmentBufferCount = 0;
+        _lineFragmentBufferCapacity = 128;
+        
+        size_t lineFragmentBufferSize =
+            (sizeof(LayoutManagerLineFragment) * _lineFragmentBufferCapacity);
+        _lineFragmentBuffer = malloc(lineFragmentBufferSize);
+        
+        size_t lineFragmentBoxBufferSize =
+            sizeof(HorizontalBox *) * _lineFragmentBufferCapacity;
+        _lineFragmentBoxBuffer =
+            (HorizontalBox * __strong *)
+            malloc(lineFragmentBoxBufferSize);
+        bzero(_lineFragmentBoxBuffer, lineFragmentBoxBufferSize);
     }
     return self;
 }
@@ -32,12 +58,26 @@
 }
 
 
+- (CGFloat) wrapWidth {
+    return _wrapWidth;
+}
+
+
+- (void) setWrapWidth: (CGFloat) wrapWidth {
+    if(_wrapWidth != wrapWidth) _layoutValid = NO;
+    _wrapWidth = wrapWidth;
+}
+
+
 - (void) appendCharacters: (unichar *) characters count: (size_t) count {
-    while(_characterBufferCount + count < _characterBufferCapacity) {
+    size_t characterBufferOriginalCapacity = _characterBufferCapacity;
+    while(_characterBufferCount + count > _characterBufferCapacity) {
         _characterBufferCapacity *= 2;
     }
-	_characterBuffer =
-		realloc(_characterBuffer, sizeof(unichar) * _characterBufferCapacity);
+    if(_characterBufferCapacity != characterBufferOriginalCapacity) {
+        _characterBuffer =
+            realloc(_characterBuffer, sizeof(unichar) * _characterBufferCapacity);
+    }
     memcpy(_characterBuffer + _characterBufferCount,
            characters,
            sizeof(unichar) * count);
@@ -46,55 +86,223 @@
 
 
 - (void) recomputeLayout {
-	VerticalBox *verticalBox = [[VerticalBox alloc] init];
-    HorizontalBox *horizontalBox = [[HorizontalBox alloc] init];
-	[horizontalBox appendGlue: [[Glue alloc] initAsInfinite]];
-    BOOL ignore_spaces = YES;
-    for(size_t i = 0; i < _characterBufferCount; i++) {
-        unichar character = _characterBuffer[i];
-        if(character == ' ') {
-            if(!ignore_spaces) {
-                ignore_spaces = YES;
-            }
-        } else if(character == '\n') {
-        	[horizontalBox setPackedWidth: [horizontalBox baseWidth]];
-        	[horizontalBox setPackedHeight: [horizontalBox baseHeight]];
-        	[verticalBox appendBox: horizontalBox];
-        	horizontalBox = [[HorizontalBox alloc] init];
-        	[horizontalBox appendGlue: [[Glue alloc] initAsInfinite]];
-            ignore_spaces = YES;
-        } else {
-            PrimitiveBox *primitiveBox =
-                [[PrimitiveBox alloc] initWithAscent: 8.0
-                                      descent: 2.0
-                                      width: 6.0
-                                      draw: ^(NSPoint origin) {
-                                          NSRect bounds;
-                                          bounds.origin.x = origin.x;
-                                          bounds.origin.y = origin.y - 2.0;
-                                          bounds.size.width = 6.0;
-                                          bounds.size.height = 10.0;
-                                          
-                                          [[NSColor blackColor] set];
-                                          [NSBezierPath strokeRect: bounds];
-                                  }];
-            [horizontalBox appendBox: primitiveBox];
-            Glue *glue = [[Glue alloc] initWithBase: 0.1
-            						   stretch: 0.1
-            						   shrink: 0.1];
-            [horizontalBox appendGlue: glue];
-            ignore_spaces = NO;
-        }
-    }
-	[horizontalBox setPackedWidth: [horizontalBox baseWidth]];
-	[horizontalBox setPackedHeight: [horizontalBox baseHeight]];
-	[verticalBox appendBox: horizontalBox];
-	[verticalBox setPackedWidth: [verticalBox baseWidth]];
-	[verticalBox setPackedHeight: [verticalBox baseHeight]];
-    [verticalBox fixContentWidths];
+    [self recomputeLineFragments];
     
+    _verticalBox = [[VerticalBox alloc] init];
+    _state = VerticalLayoutManagerState;
+    
+    size_t glyphOffset = 0;
+    for(size_t lineFragmentOffset = 0;
+        lineFragmentOffset < _lineFragmentBufferCount;
+        lineFragmentOffset++)
+    {
+        LayoutManagerLineFragment *lineFragment =
+            _lineFragmentBuffer + lineFragmentOffset;
+        [self startLineFragment: lineFragmentOffset];
+        
+        for(size_t i = 0; i < lineFragment->glyphCount; i++) {
+            CGGlyph glyph = _glyphBuffer[glyphOffset + i];
+            [self emitPrimitiveBox: glyph];
+            [self emitIntercharacterGlue];
+        }
+        
+        [self endLineFragment: lineFragmentOffset];
+        
+        glyphOffset += lineFragment->glyphCount;
+    }
+    
+    [_verticalBox setPackedHeight: [_verticalBox baseHeight]];
+    
+    _box = _verticalBox;
     _layoutValid = YES;
-    _box = verticalBox;
+}
+
+
+- (void) recomputeLineFragments {
+    size_t lineFragmentOffset = 0;
+    size_t glyphOffset = 0;
+    for(size_t characterOffset = 0;
+        characterOffset < _characterBufferCount;
+        characterOffset++)
+    {
+        size_t lineFragmentBufferOriginalCapacity =
+            _lineFragmentBufferCapacity;
+        while(_lineFragmentBufferCount + 1 > _lineFragmentBufferCapacity) {
+            _lineFragmentBufferCapacity *= 2;
+        }
+        if(_lineFragmentBufferCapacity != lineFragmentBufferOriginalCapacity)
+        {
+            _lineFragmentBuffer =
+                realloc(_lineFragmentBuffer,
+                        sizeof(LayoutManagerLineFragment)
+                               * _lineFragmentBufferCapacity);
+            _lineFragmentBoxBuffer = 
+                (HorizontalBox * __strong *)
+                realloc(_lineFragmentBoxBuffer,
+                        sizeof(HorizontalBox *) * _lineFragmentBufferCapacity);
+            bzero(_lineFragmentBoxBuffer + lineFragmentBufferOriginalCapacity,
+                  sizeof(HorizontalBox *)
+                  * (_lineFragmentBufferCapacity
+                     - lineFragmentBufferOriginalCapacity));
+        }
+        
+        _lineFragmentBufferCount++;
+        
+        _lineFragmentBuffer[lineFragmentOffset].textAlignment =
+            LeftLayoutManagerTextAlignment;
+        
+        _lineFragmentBuffer[lineFragmentOffset].characterCount = 0;
+        while((characterOffset < _characterBufferCount) &&
+              (_characterBuffer[characterOffset] != '\n'))
+        {
+            _lineFragmentBuffer[lineFragmentOffset].characterCount++;
+            characterOffset++;
+        }
+        
+        size_t glyphBufferOriginalCapacity = _glyphBufferCapacity;
+        while(glyphOffset + _lineFragmentBuffer[lineFragmentOffset].characterCount
+              > _glyphBufferCapacity)
+        {
+            _glyphBufferCapacity *= 2;
+        }
+        if(_glyphBufferCapacity != glyphBufferOriginalCapacity) {
+            _glyphBuffer =
+                realloc(_glyphBuffer, sizeof(CGGlyph) * _glyphBufferCapacity);
+        }
+        
+        CTFontGetGlyphsForCharacters
+            (_font,
+             _characterBuffer
+             + (characterOffset - _lineFragmentBuffer[lineFragmentOffset].characterCount),
+             _glyphBuffer + glyphOffset,
+             _lineFragmentBuffer[lineFragmentOffset].characterCount);
+        {
+            size_t i;
+            for(i = 0;
+                _glyphBuffer[glyphOffset + i]
+                && (i < _lineFragmentBuffer[lineFragmentOffset].characterCount);
+                i++);
+            _lineFragmentBuffer[lineFragmentOffset].glyphCount = i;
+        }
+        glyphOffset += _lineFragmentBuffer[lineFragmentOffset].glyphCount;
+        
+        if(characterOffset < _characterBufferCount)
+            _lineFragmentBuffer[lineFragmentOffset].characterCount++;
+        
+        lineFragmentOffset++;
+    }
+}
+
+
+- (void) startLineFragment: (size_t) lineFragmentOffset
+{
+    switch(_state) {
+	case VerticalLayoutManagerState:
+	    _horizontalBox = [[HorizontalBox alloc] init];
+        _lineFragmentBoxBuffer[lineFragmentOffset] = _horizontalBox;
+        
+    case HorizontalLayoutManagerState:
+        switch(_lineFragmentBuffer[lineFragmentOffset].textAlignment) {
+        case CenterLayoutManagerTextAlignment:
+        case RightLayoutManagerTextAlignment:
+        	[_horizontalBox appendGlue: [[Glue alloc] initAsInfinite]];
+        	break;
+    	default: break;
+        }
+    	break;
+    }
+    
+    _state = HorizontalLayoutManagerState;
+}
+
+
+- (void) endLineFragment: (size_t) lineFragmentOffset
+{
+    switch(_state) {
+    case HorizontalLayoutManagerState:
+        [_horizontalBox setPackedWidth: [_horizontalBox baseWidth]];
+        [_horizontalBox setPackedHeight: [_horizontalBox baseHeight]];
+        
+        switch(_lineFragmentBuffer[lineFragmentOffset].textAlignment) {
+        case LeftLayoutManagerTextAlignment:
+        case CenterLayoutManagerTextAlignment:
+        	[_horizontalBox appendGlue: [[Glue alloc] initAsInfinite]];
+        	break;
+        default: break;
+        }
+        
+        [_verticalBox appendBox: _horizontalBox];
+        break;
+    default: break;
+    }
+    
+    _state = VerticalLayoutManagerState;
+}
+
+
+- (void) emitPrimitiveBox: (CGGlyph) glyph {
+    CGFloat ascent = CTFontGetAscent(_font);
+    CGFloat descent = CTFontGetDescent(_font);
+    
+    CGSize advancesBuffer[1];
+    CTFontGetAdvancesForGlyphs
+        (_font,
+         kCTFontHorizontalOrientation,
+         &glyph,
+         advancesBuffer,
+         1);
+    CGFloat advance = advancesBuffer[0].width;
+    
+    PrimitiveBox *primitiveBox =
+        [[PrimitiveBox alloc] initWithAscent: ascent
+                              descent: descent
+                              width: advance
+                              draw: ^(NSPoint origin) {
+                                  CGPoint cgOrigin;
+                                  cgOrigin.x = origin.x;
+                                  cgOrigin.y = origin.y;
+                                  
+                                  CGContextRef cgContext;
+                                  cgContext =
+                                    [[NSGraphicsContext currentContext]
+                                       graphicsPort];
+                                  
+                                  CTFontDrawGlyphs(_font,
+                                                   &glyph,
+                                                   &cgOrigin,
+                                                   1,
+                                                   cgContext);
+                                  
+                                  //NSRect bounds;
+                                  //bounds.origin.x = origin.x;
+                                  //bounds.origin.y = origin.y - 2.0;
+                                  //bounds.size.width = advance;
+                                  //bounds.size.height = ascent + descent;
+                                  //
+                                  //[[NSColor blackColor] set];
+                                  //[NSBezierPath strokeRect: bounds];
+                          }];
+    
+    switch(_state) {
+    case HorizontalLayoutManagerState:
+        [_horizontalBox appendBox: primitiveBox];
+        break;
+    default: break;
+    }
+}
+
+
+- (void) emitIntercharacterGlue {
+    Glue *glue = [[Glue alloc] initWithBase: 0.1
+                               stretch: 0.1
+                               shrink: 0.1];
+    
+    switch(_state) {
+    case HorizontalLayoutManagerState:
+        [_horizontalBox appendGlue: glue];
+        break;
+    default: break;
+    }
 }
 
 
@@ -106,10 +314,9 @@
     
     if(_box) {
         NSPoint origin;
-        origin.x = bounds.origin.x + 0.5;
+        origin.x = bounds.origin.x;
         origin.y = bounds.origin.y + bounds.size.height
-        		   - [_box packedHeight] + [_box descent] + 0.5;
-        NSLog(@"drawing root at %lf, %lf", origin.x, origin.y);
+        		   - [_box packedHeight] + [_box descent];
         [_box draw: origin];
     }
 }

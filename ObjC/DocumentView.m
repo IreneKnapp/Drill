@@ -56,7 +56,10 @@
         [_schemaLayoutManager appendCharacters: characters count: 3];
     }
     
-    [_schemaLayoutManager draw: dirtyRect inBounds: [self bounds]];
+    NSRect bounds = [self bounds];
+    
+    [_schemaLayoutManager setWrapWidth: bounds.size.width];
+    [_schemaLayoutManager draw: dirtyRect inBounds: bounds];
 }
 
 

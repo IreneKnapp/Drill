@@ -12,12 +12,15 @@
 @class Glue;
 @interface VerticalBox : NSObject <Box> {
     NSMutableArray *_boxesAndGlue;
+    NSUInteger _nInfiniteGlues;
     CGFloat _stretch;
     CGFloat _shrink;
     CGFloat _baseWidth;
     CGFloat _packedWidth;
     CGFloat _baseHeight;
     CGFloat _packedHeight;
+    BOOL _adjustmentValid;
+    CGFloat _adjustment;
 }
 
 - (id) init;
@@ -33,6 +36,6 @@
 - (void) setPackedHeight: (CGFloat) packedHeight;
 - (void) appendBox: (id <Box>) box;
 - (void) appendGlue: (Glue *) glue;
-- (void) fixContentWidths;
 - (void) draw: (NSPoint) origin;
+- (void) recomputeAdjustment;
 @end

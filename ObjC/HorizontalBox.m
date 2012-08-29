@@ -22,6 +22,7 @@
         _shrink = 0.0;
         _baseWidth = 0.0;
         _packedWidth = 0.0;
+        _adjustmentValid = NO;
     }
     return self;
 }
@@ -58,6 +59,7 @@
 
 
 - (void) setPackedWidth: (CGFloat) packedWidth {
+    if(_packedWidth != packedWidth) _adjustmentValid = NO;
     _packedWidth = packedWidth;
 }
 
@@ -74,18 +76,29 @@
 
 - (void) setPackedHeight: (CGFloat) packedHeight {
 	_packedHeight = packedHeight;
+	
+    for(id boxOrGlue in _boxesAndGlue) {
+        if([boxOrGlue conformsToProtocol: @protocol(Box)]) {
+        	id <Box> box = (id <Box>) boxOrGlue;
+        	
+        	[box setPackedHeight: _packedHeight];
+        }
+    }
 }
 
 
 - (void) appendBox: (id <Box>) box {
     CGFloat boxAscent = [box ascent];
     CGFloat boxDescent = [box descent];
-    CGFloat boxWidth = [box packedWidth];
+    CGFloat boxWidth = [box baseWidth];
     
     if(boxAscent > _ascent) _ascent = boxAscent;
     if(boxDescent > _descent) _descent = boxDescent;
     _baseWidth += boxWidth;
     
+    [box setPackedWidth: [box baseWidth]];
+    
+	_adjustmentValid = NO;
     [_boxesAndGlue addObject: box];
 }
 
@@ -102,20 +115,14 @@
 	} else {
 		_nInfiniteGlues++;
 	}
-	    
+	
+	_adjustmentValid = NO;
     [_boxesAndGlue addObject: glue];
 }
 
 
 - (void) draw: (NSPoint) origin {
-    CGFloat adjustment = _packedWidth - _baseWidth;
-    if(_nInfiniteGlues == 0) {
-		if(adjustment > 0.0) {
-			adjustment /= _stretch;
-		} else if(adjustment < 0.0) {
-			adjustment /= _shrink;
-		}
-	}
+	if(!_adjustmentValid) [self recomputeAdjustment];
     
     for(id boxOrGlue in _boxesAndGlue) {
         if([boxOrGlue conformsToProtocol: @protocol(Box)]) {
@@ -128,21 +135,38 @@
             Glue *glue = (Glue *) boxOrGlue;
             
             if(![glue isInfinite]) {
+                CGFloat base = [glue base];
+                
             	if(_nInfiniteGlues == 0) {
-					CGFloat base = [glue base];
-					if(adjustment > 0.0) {
-						base += [glue stretch] * adjustment;
-					} else if(adjustment < 0.0) {
-						base += [glue shrink] * adjustment;
+					if(_adjustment > 0.0) {
+						base += [glue stretch] * _adjustment;
+					} else if(_adjustment < 0.0) {
+						base += [glue shrink] * _adjustment;
 					}
-					
-					origin.x += base;
 				}
+				
+                origin.x += base;
 			} else {
-				origin.x += adjustment / _nInfiniteGlues;
+				origin.x += _adjustment;
 			}
         }
     }
+}
+
+
+- (void) recomputeAdjustment {
+	_adjustmentValid = YES;
+	
+    _adjustment = _packedWidth - _baseWidth;
+    if(_nInfiniteGlues == 0) {
+		if(_adjustment > 0.0) {
+			_adjustment /= _stretch;
+		} else if(_adjustment < 0.0) {
+			_adjustment /= _shrink;
+		}
+	} else {
+	    _adjustment /= _nInfiniteGlues;
+	}
 }
 
 @end

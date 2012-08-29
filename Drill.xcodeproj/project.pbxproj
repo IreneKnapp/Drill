@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980CF0CC15ED56E30050F6E6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980CF0CB15ED56E30050F6E6 /* CoreText.framework */; };
 		980FDABF15EBE14100380D53 /* LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 980FDABE15EBE14100380D53 /* LayoutManager.m */; };
 		980FDAC215EBE8B900380D53 /* PrimitiveBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 980FDAC115EBE8B900380D53 /* PrimitiveBox.m */; };
 		980FDAC515EBE8C300380D53 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 980FDAC415EBE8C300380D53 /* Glue.m */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		980CF0CB15ED56E30050F6E6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		980FDABD15EBE14100380D53 /* LayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutManager.h; sourceTree = "<group>"; };
 		980FDABE15EBE14100380D53 /* LayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutManager.m; sourceTree = "<group>"; };
 		980FDAC015EBE8B900380D53 /* PrimitiveBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimitiveBox.h; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC7EF81315E30FF8009A6BBC /* Cocoa.framework in Frameworks */,
+				980CF0CC15ED56E30050F6E6 /* CoreText.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				FC7EF81215E30FF8009A6BBC /* Cocoa.framework */,
+				980CF0CB15ED56E30050F6E6 /* CoreText.framework */,
 				FC7EF81415E30FF8009A6BBC /* Other Frameworks */,
 			);
 			name = Frameworks;
