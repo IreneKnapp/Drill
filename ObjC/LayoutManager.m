@@ -262,25 +262,32 @@
                                   cgOrigin.x = origin.x;
                                   cgOrigin.y = origin.y;
                                   
-                                  CGContextRef cgContext;
-                                  cgContext =
+                                  CGContextRef cgContext =
                                     [[NSGraphicsContext currentContext]
                                        graphicsPort];
                                   
-                                  CTFontDrawGlyphs(_font,
-                                                   &glyph,
-                                                   &cgOrigin,
-                                                   1,
-                                                   cgContext);
+                                  CGContextSaveGState(cgContext);
                                   
-                                  //NSRect bounds;
-                                  //bounds.origin.x = origin.x;
-                                  //bounds.origin.y = origin.y - 2.0;
-                                  //bounds.size.width = advance;
-                                  //bounds.size.height = ascent + descent;
-                                  //
-                                  //[[NSColor blackColor] set];
-                                  //[NSBezierPath strokeRect: bounds];
+                                  CGFontRef cgFont =
+                                      CTFontCopyGraphicsFont(_font, NULL);
+                                  
+                                  CGAffineTransform cgMatrix;
+                                  cgMatrix.a = 1.0;
+                                  cgMatrix.b = 0.0;
+                                  cgMatrix.c = 0.0;
+                                  cgMatrix.d = 1.0;
+                                  cgMatrix.tx = 0.0;
+                                  cgMatrix.ty = 0.0;
+                                  
+                                  CGContextSetTextMatrix(cgContext, cgMatrix);
+                                  CGContextSetFont(cgContext, cgFont);
+                                  CGContextSetFontSize(cgContext, CTFontGetSize(_font));
+                                  CGContextSetRGBFillColor(cgContext, 0.0, 0.0, 0.0, 1.0);
+                                  CGContextShowGlyphsAtPositions(cgContext, &glyph, &origin, 1);
+                                  
+                                  CGFontRelease(cgFont);
+                                  
+                                  CGContextRestoreGState(cgContext);
                           }];
     
     switch(_state) {

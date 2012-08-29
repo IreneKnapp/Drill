@@ -49,11 +49,16 @@
         _schemaLayoutManager =
             [[LayoutManager alloc] initWithPresentation:
                 [[self document] schemaPresentation]];
-        unichar characters[3];
-        characters[0] = 'f';
+        unichar characters[8];
+        characters[0] = 'F';
         characters[1] = 'o';
         characters[2] = 'o';
-        [_schemaLayoutManager appendCharacters: characters count: 3];
+        characters[3] = '\n';
+        characters[4] = 'B';
+        characters[5] = 'a';
+        characters[6] = 'r';
+        characters[7] = '\n';
+        [_schemaLayoutManager appendCharacters: characters count: 8];
     }
     
     NSRect bounds = [self bounds];
