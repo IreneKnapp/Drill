@@ -122,13 +122,17 @@
 - (void) draw: (NSPoint) origin {
 	if(!_adjustmentValid) [self recomputeAdjustment];
     
+    origin.y += _packedHeight;
+    
     for(id boxOrGlue in _boxesAndGlue) {
         if([boxOrGlue conformsToProtocol: @protocol(Box)]) {
             id <Box> box = (id <Box>) boxOrGlue;
             
+            origin.y -= [box ascent];
+            
             [box draw: origin];
             
-            origin.y -= [box packedHeight];
+            origin.y -= [box descent];
         } else if([boxOrGlue isKindOfClass: [Glue class]]) {
             Glue *glue = (Glue *) boxOrGlue;
             
