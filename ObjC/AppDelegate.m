@@ -11,11 +11,28 @@
 #import "Command.h"
 #import "Document.h"
 #import "SchemaMode.h"
+#import "ModernStyle.h"
+#import "ModernStyleRule.h"
+#import "ModernStyleSelector.h"
+#import "ModernStyleSelectorWild.h"
 
 @implementation AppDelegate
 
 - (void) applicationWillFinishLaunching: (NSNotification *) notification {
     _schemaMode = [[SchemaMode alloc] init];
+    
+    _styleSheet = [NSMutableArray arrayWithCapacity: 64];
+    
+    {
+        id <ModernStyleSelector> selector =
+            [[ModernStyleSelectorWild alloc] init];
+        ModernStyle *style = [[ModernStyle alloc] init];
+        ModernStyleRule *rule =
+            [[ModernStyleRule alloc] initWithSelector: selector
+                                     style: style];
+        
+        [_styleSheet addObject: rule];
+    }
 }
 
 
@@ -100,6 +117,11 @@
 
 - (id <Mode>) schemaMode {
     return _schemaMode;
+}
+
+
+- (NSArray *) styleSheet {
+    return (NSArray *) _styleSheet;
 }
 
 @end

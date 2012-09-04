@@ -7,6 +7,9 @@
 //
 
 #import "ModernPresentation.h"
+#import "ModernStyle.h"
+#import "ModernStyleRule.h"
+#import "ModernStyleSelector.h"
 
 @implementation ModernPresentation
 
@@ -16,6 +19,7 @@
 		[self setNode: node];
 		_children = [NSMutableArray arrayWithCapacity: 8];
 		_parent = nil;
+		_computedStyle = nil;
 	}
 	return self;
 }
@@ -51,6 +55,63 @@
 	if(_parent) [_parent->_children removeObject: self];
 	[parent->_children addObject: self];
 	_parent = parent;
+}
+
+
+- (void) recomputeStyleWithSheets: (NSArray *) styleSheets {
+    ModernStyle *containerStyle = nil;
+    if(_parent) containerStyle = [_parent computedStyle];
+    ModernStyle *computedStyle = [[ModernStyle alloc] init];
+    
+    for(NSString *propertyName in [ModernStyle allProperties]) {
+        BOOL found = NO;
+        
+        if([_style propertyIsSet: propertyName]) {
+            [computedStyle setProperty: propertyName
+                           from: _style];
+            found = YES;
+        }
+        
+        for(NSArray *styleSheet in styleSheets) {
+            if(found) break;
+            
+            for(ModernStyleRule *rule in styleSheet) {
+                if([[rule selector] test: self]) {
+                    if([[rule style] propertyIsSet: propertyName]) {
+                        [computedStyle setProperty: propertyName
+                                       from: [rule style]];
+                        found = YES;
+                    }
+                }
+            }
+        }
+        
+        if(!found) {
+            
+        }
+    }
+    
+    [self setComputedStyle: computedStyle];
+    
+    for(ModernPresentation *child in _children) {
+        [child recomputeStyleWithSheets: styleSheets];
+    }
+}
+
+
+- (NSString *) text {
+    NSMutableString *result = [NSMutableString stringWithCapacity: 1024];
+    
+    ModernStyle *style = [self computedStyle];
+    if(style) {
+        [result appendString: @"("];
+        for(ModernPresentation *child in _children) {
+            [result appendString: [child text]];
+        }
+        [result appendString: @")"];
+    }
+    
+    return (NSString *) result;
 }
 
 @end

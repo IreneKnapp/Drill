@@ -16,6 +16,9 @@
 		9814856215E552510026E714 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856115E552510026E714 /* AppDelegate.m */; };
 		9814856515E555E50026E714 /* AdviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856415E555E50026E714 /* AdviceView.m */; };
 		9884318F15E6BFD90057752B /* Modern.m in Sources */ = {isa = PBXBuildFile; fileRef = 9884318E15E6BFD90057752B /* Modern.m */; };
+		98ABA22B15F675CE00245CD1 /* ModernStyleSelectorNodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ABA22A15F675CE00245CD1 /* ModernStyleSelectorNodeType.m */; };
+		98ABA22E15F67A9600245CD1 /* ModernStyleRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ABA22D15F67A9600245CD1 /* ModernStyleRule.m */; };
+		98ABA23115F6854200245CD1 /* ModernStyleSelectorWild.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ABA23015F6854200245CD1 /* ModernStyleSelectorWild.m */; };
 		98AE3F7915E6895D004CE0D4 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7815E6895D004CE0D4 /* Command.m */; };
 		98AE3F7E15E68E95004CE0D4 /* SchemaMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE3F7D15E68E95004CE0D4 /* SchemaMode.m */; };
 		FC024B5C15E5AEBC00368FEA /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC024B5B15E5AEBC00368FEA /* DocumentWindowController.m */; };
@@ -52,6 +55,13 @@
 		9814856415E555E50026E714 /* AdviceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdviceView.m; sourceTree = "<group>"; };
 		9884318D15E6BFD90057752B /* Modern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Modern.h; path = ObjC/Modern.h; sourceTree = "<group>"; };
 		9884318E15E6BFD90057752B /* Modern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Modern.m; path = ObjC/Modern.m; sourceTree = "<group>"; };
+		98ABA22815F6754000245CD1 /* ModernStyleSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModernStyleSelector.h; path = ObjC/ModernStyleSelector.h; sourceTree = "<group>"; };
+		98ABA22915F675CE00245CD1 /* ModernStyleSelectorNodeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleSelectorNodeType.h; path = ObjC/ModernStyleSelectorNodeType.h; sourceTree = "<group>"; };
+		98ABA22A15F675CE00245CD1 /* ModernStyleSelectorNodeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleSelectorNodeType.m; path = ObjC/ModernStyleSelectorNodeType.m; sourceTree = "<group>"; };
+		98ABA22C15F67A9600245CD1 /* ModernStyleRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleRule.h; path = ObjC/ModernStyleRule.h; sourceTree = "<group>"; };
+		98ABA22D15F67A9600245CD1 /* ModernStyleRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleRule.m; path = ObjC/ModernStyleRule.m; sourceTree = "<group>"; };
+		98ABA22F15F6854200245CD1 /* ModernStyleSelectorWild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleSelectorWild.h; path = ObjC/ModernStyleSelectorWild.h; sourceTree = "<group>"; };
+		98ABA23015F6854200245CD1 /* ModernStyleSelectorWild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleSelectorWild.m; path = ObjC/ModernStyleSelectorWild.m; sourceTree = "<group>"; };
 		98AE3F7715E6895D004CE0D4 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
 		98AE3F7815E6895D004CE0D4 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
 		98AE3F7B15E68DFF004CE0D4 /* Mode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mode.h; sourceTree = "<group>"; };
@@ -123,6 +133,13 @@
 				FCA21A4F15E9974B009727B8 /* ModernPresentation.m */,
 				FCA21A5215E99D7D009727B8 /* ModernStyle.h */,
 				FCA21A5315E99D7D009727B8 /* ModernStyle.m */,
+				98ABA22815F6754000245CD1 /* ModernStyleSelector.h */,
+				98ABA22F15F6854200245CD1 /* ModernStyleSelectorWild.h */,
+				98ABA23015F6854200245CD1 /* ModernStyleSelectorWild.m */,
+				98ABA22915F675CE00245CD1 /* ModernStyleSelectorNodeType.h */,
+				98ABA22A15F675CE00245CD1 /* ModernStyleSelectorNodeType.m */,
+				98ABA22C15F67A9600245CD1 /* ModernStyleRule.h */,
+				98ABA22D15F67A9600245CD1 /* ModernStyleRule.m */,
 			);
 			name = "Modern Data";
 			path = ..;
@@ -323,6 +340,9 @@
 				980FDAC515EBE8C300380D53 /* Glue.m in Sources */,
 				980FDAC915EBFC6900380D53 /* HorizontalBox.m in Sources */,
 				FC382B8915EC55E700AEA2A8 /* VerticalBox.m in Sources */,
+				98ABA22B15F675CE00245CD1 /* ModernStyleSelectorNodeType.m in Sources */,
+				98ABA22E15F67A9600245CD1 /* ModernStyleRule.m in Sources */,
+				98ABA23115F6854200245CD1 /* ModernStyleSelectorWild.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

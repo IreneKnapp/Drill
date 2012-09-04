@@ -17,7 +17,12 @@
 - (id) init {
     self = [super init];
     if (self) {
+        [self setSchemaPresentation:
+                [[ModernPresentation alloc] initWithNode: nil]];
+        
         _schemaNodes = [NSMutableArray arrayWithCapacity: 128];
+        
+        _styleSheet = [NSMutableArray arrayWithCapacity: 64];
     }
     return self;
 }
@@ -78,17 +83,17 @@
 - (void) addSchemaNode: (Modern *) node {
     [_schemaNodes addObject: node];
     
-    if(![self schemaPresentation]) {
-        [self setSchemaPresentation:
-                [[ModernPresentation alloc] initWithNode: nil]];
-    }
-    
     ModernPresentation *presentation =
         [[ModernPresentation alloc] initWithNode: node];
     [[self schemaPresentation] addChild: presentation];
     
     [(DocumentWindowController *) [[self mainWindow] windowController]
         updateDocumentContent];
+}
+
+
+- (NSArray *) styleSheet {
+    return (NSArray *) _styleSheet;
 }
 
 @end

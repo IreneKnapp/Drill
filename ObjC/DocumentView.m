@@ -7,6 +7,7 @@
 //
 
 #import "DocumentView.h"
+#import "AppDelegate.h"
 #import "Document.h"
 #import "DocumentWindowController.h"
 #import "LayoutManager.h"
@@ -49,6 +50,7 @@
         _schemaLayoutManager =
             [[LayoutManager alloc] initWithPresentation:
                 [[self document] schemaPresentation]];
+        /*
         unichar characters[8];
         characters[0] = 'F';
         characters[1] = 'o';
@@ -59,7 +61,29 @@
         characters[6] = 'r';
         characters[7] = '\n';
         [_schemaLayoutManager appendCharacters: characters count: 8];
+        */
     }
+    
+    Document *document = [self document];
+    ModernPresentation *presentation = [document schemaPresentation];
+    NSArray *applicationStyleSheet =
+        [(AppDelegate *) [NSApp delegate] styleSheet];
+    NSArray *documentStyleSheet = [document styleSheet];
+    NSArray *styleSheets =
+        [NSArray arrayWithObjects: documentStyleSheet,
+                                   applicationStyleSheet,
+                                   nil];
+    
+    [presentation recomputeStyleWithSheets: styleSheets];
+    
+    [_schemaLayoutManager removeAllCharacters];
+    NSString *text = [presentation text];
+    unichar *characters = malloc(sizeof(unichar) * [text length]);
+    for(size_t i = 0; i < [text length]; i++) {
+        characters[i] = [text characterAtIndex: i];
+    }
+    [_schemaLayoutManager appendCharacters: characters count: [text length]];
+    free(characters);
     
     NSRect bounds = [self bounds];
     

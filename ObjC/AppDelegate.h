@@ -12,6 +12,7 @@
 @class AdviceView;
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     id <Mode> _schemaMode;
+    NSMutableArray *_styleSheet;
 }
 @property (strong, nonatomic) IBOutlet NSPanel *advicePanel;
 @property (strong, nonatomic) IBOutlet AdviceView *adviceView;
@@ -26,4 +27,5 @@
 - (void) showAdviceWithWindow: (NSWindow *) window;
 - (void) adviceNeedsDisplay;
 - (id <Mode>) schemaMode;
+- (NSArray *) styleSheet;
 @end

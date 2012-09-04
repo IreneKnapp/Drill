@@ -62,6 +62,7 @@ typedef enum {
 - (void) dealloc;
 - (CGFloat) wrapWidth;
 - (void) setWrapWidth: (CGFloat) wrapWidth;
+- (void) removeAllCharacters;
 - (void) appendCharacters: (unichar *) characters count: (size_t) count;
 - (void) recomputeLayout;
 - (void) recomputeLineFragments;

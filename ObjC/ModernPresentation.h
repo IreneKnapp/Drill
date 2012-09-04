@@ -16,6 +16,7 @@
 }
 @property (strong, nonatomic) Modern *node;
 @property (strong, nonatomic) ModernStyle *style;
+@property (strong, nonatomic) ModernStyle *computedStyle;
 
 - (id) initWithNode: (Modern *) node;
 - (NSArray *) children;
@@ -24,4 +25,6 @@
          atIndex: (NSUInteger) index;
 - (ModernPresentation *) getParent;
 - (void) setParent: (ModernPresentation *) parent;
+- (void) recomputeStyleWithSheets: (NSArray *) styleSheets;
+- (NSString *) text;
 @end

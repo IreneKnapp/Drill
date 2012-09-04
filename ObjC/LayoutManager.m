@@ -69,6 +69,12 @@
 }
 
 
+- (void) removeAllCharacters {
+    _characterBufferCount = 0;
+    _layoutValid = NO;
+}
+
+
 - (void) appendCharacters: (unichar *) characters count: (size_t) count {
     size_t characterBufferOriginalCapacity = _characterBufferCapacity;
     while(_characterBufferCount + count > _characterBufferCapacity) {
@@ -82,6 +88,7 @@
            characters,
            sizeof(unichar) * count);
     _characterBufferCount += count;
+    _layoutValid = NO;
 }
 
 
@@ -119,6 +126,8 @@
 
 
 - (void) recomputeLineFragments {
+    _lineFragmentBufferCount = 0;
+    
     size_t lineFragmentOffset = 0;
     size_t glyphOffset = 0;
     for(size_t characterOffset = 0;

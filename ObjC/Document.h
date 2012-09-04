@@ -12,6 +12,7 @@
 @class ModernPresentation;
 @interface Document : NSDocument {
     NSMutableArray *_schemaNodes;
+    NSMutableArray *_styleSheet;
 }
 @property (strong, nonatomic) NSWindow *mainWindow;
 @property (strong, nonatomic) NSMutableArray *adviceItems;
@@ -25,4 +26,5 @@
 - (BOOL) readFromData: (NSData *) data ofType: (NSString *) typeName error: (NSError **) outError;
 - (NSArray *) schemaNodes;
 - (void) addSchemaNode: (Modern *) node;
+- (NSArray *) styleSheet;
 @end

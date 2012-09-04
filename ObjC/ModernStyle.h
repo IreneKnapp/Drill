@@ -30,23 +30,23 @@ typedef enum {
 	BOOL _textAlignmentSet;
 	ModernStyleTextAlignment _textAlignment;
 }
-@property (strong, nonatomic) ModernStyle *parent;
-@property (strong, nonatomic) ModernStyle *container;
 
-- (id) initWithParent: (ModernStyle *) parent
-       container: (ModernStyle *) container;
-
-- (BOOL) displayIsSet;
-- (void) unsetDisplay;
-- (void) setDisplay: (ModernStyleDisplay) display;
-+ (ModernStyleDisplay) defaultDisplay;
-- (ModernStyleDisplay) display;
-- (ModernStyleDisplay) computedDisplay;
-
-- (BOOL) textAlignmentIsSet;
-- (void) unsetTextAlignment;
-- (void) setTextAlignment: (ModernStyleTextAlignment) textAlignment;
-+ (ModernStyleTextAlignment) defaultTextAlignment;
-- (ModernStyleTextAlignment) textAlignment;
-- (ModernStyleTextAlignment) computedTextAlignment;
++ (NSArray *) allProperties;
++ (size_t) propertyInitialValueSize: (NSString *) name;
++ (BOOL) copyPropertyInitialValue: (NSString *) name
+         data: (void *) data
+         size: (size_t) propertySize;
+- (id) init;
+- (size_t) propertySize: (NSString *) name;
+- (BOOL) propertyIsSet: (NSString *) name;
+- (BOOL) copyProperty: (NSString *) name
+         data: (void *) data
+         size: (size_t) propertySize;
+- (BOOL) setProperty: (NSString *) name
+         data: (void *) data
+         size: (size_t) propertySize;
+- (BOOL) unsetProperty: (NSString *) name;
+- (BOOL) setProperty: (NSString *) name
+         from: (ModernStyle *) otherStyle;
+- (BOOL) setPropertyToInitialValue: (NSString *) name;
 @end

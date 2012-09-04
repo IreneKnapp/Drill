@@ -10,13 +10,51 @@
 
 @implementation ModernStyle
 
-- (id) initWithParent: (ModernStyle *) parent
-       container: (ModernStyle *) container
++ (NSArray *) allProperties {
+    static NSMutableArray *result = nil;
+    
+    if(!result) {
+        result = [NSMutableArray arrayWithCapacity: 8];
+        [result addObject: @"display"];
+        [result addObject: @"text-alignment"];
+    }
+    
+    return (NSArray *) result;
+}
+
+
++ (size_t) propertyInitialValueSize: (NSString *) name {
+    if([name isEqualToString: @"display"]) {
+        return sizeof(ModernStyleDisplay);
+    } else if([name isEqualToString: @"text-alignment"]) {
+        return sizeof(ModernStyleTextAlignment);
+    } else {
+        return 0;
+    }
+}
+
+
++ (BOOL) copyPropertyInitialValue: (NSString *) name
+         data: (void *) data
+         size: (size_t) propertySize
 {
+    if(propertySize < [ModernStyle propertyInitialValueSize: name]) return NO;
+    
+    if([name isEqualToString: @"display"]) {
+        *((ModernStyleDisplay *) data) = NoneModernStyleDisplay;
+    } else if([name isEqualToString: @"text-alignment"]) {
+        *((ModernStyleTextAlignment *) data) = LeftModernStyleTextAlignment;
+    } else {
+        return NO;
+    }
+    
+    return YES;
+}
+
+
+- (id) init {
 	self = [super init];
 	if(self) {
-		[self setParent: parent];
-		[self setContainer: container];
 		_displaySet = NO;
 		_textAlignmentSet = NO;
 	}
@@ -24,81 +62,134 @@
 }
 
 
-- (BOOL) displayIsSet {
-	return _displaySet;
+- (size_t) propertySize: (NSString *) name {
+    if([name isEqualToString: @"display"]) {
+        return sizeof(ModernStyleDisplay);
+    } else if([name isEqualToString: @"text-alignment"]) {
+        return sizeof(ModernStyleTextAlignment);
+    } else {
+        return 0;
+    }
 }
 
 
-- (void) unsetDisplay {
-	_displaySet = NO;
+- (BOOL) propertyIsSet: (NSString *) name {
+    if([name isEqualToString: @"display"]) {
+        return _displaySet;
+    } else if([name isEqualToString: @"text-alignment"]) {
+        return _textAlignmentSet;
+    } else {
+        return NO;
+    }
 }
 
 
-- (void) setDisplay: (ModernStyleDisplay) display {
-	_displaySet = YES;
-	_display = display;
+- (BOOL) copyProperty: (NSString *) name
+         data: (void *) data
+         size: (size_t) propertySize
+{
+    if(propertySize < [self propertySize: name]) return NO;
+    if(![self propertyIsSet: name]) return NO;
+    
+    if([name isEqualToString: @"display"]) {
+        *((ModernStyleDisplay *) data) = _display;
+    } else if([name isEqualToString: @"text-alignment"]) {
+        *((ModernStyleTextAlignment *) data) = _textAlignment;
+    } else {
+        return NO;
+    }
+    
+    return YES;
 }
 
 
-+ (ModernStyleDisplay) defaultDisplay {
-    return NoneModernStyleDisplay;
+- (BOOL) setProperty: (NSString *) name
+         data: (void *) data
+         size: (size_t) propertySize
+{
+    if(propertySize < [self propertySize: name]) return NO;
+    
+    if([name isEqualToString: @"display"]) {
+        _displaySet = YES;
+        _display = *(ModernStyleDisplay *) data;
+    } else if([name isEqualToString: @"text-alignment"]) {
+        _textAlignmentSet = YES;
+        _textAlignment = *(ModernStyleTextAlignment *) data;
+    } else {
+        return NO;
+    }
+    
+    return YES;
 }
 
 
-- (ModernStyleDisplay) display {
-	if(_displaySet) return _display;
-	if([self parent]) return [[self parent] display];
-	return [[self class] defaultDisplay];
+- (BOOL) unsetProperty: (NSString *) name {
+    if([name isEqualToString: @"display"]) {
+        _displaySet = NO;
+    } else if([name isEqualToString: @"text-alignment"]) {
+        _textAlignmentSet = NO;
+    } else {
+        return NO;
+    }
+    
+    return YES;
 }
 
 
-- (ModernStyleDisplay) computedDisplay {
-	ModernStyleDisplay local = [self display];
-	if(local == InheritModernStyleDisplay) {
-	    ModernStyle *container = [self container];
-	    if(container) return [container computedDisplay];
-	    else return [[self class] defaultDisplay];
-	}
-	else return local;
+- (BOOL) setProperty: (NSString *) name
+         from: (ModernStyle *) otherStyle
+{
+    BOOL result = YES;
+    
+    size_t propertySize = [otherStyle propertySize: name];
+    
+    void *propertyValue = malloc(propertySize);
+    
+    if([otherStyle copyProperty: propertyName
+                   data: propertyValue
+                   size: propertySize])
+    {
+        if(![self setProperty: propertyName
+                  data: propertyValue
+                  size: propertySize])
+        {
+            result = NO;
+        }
+    } else {
+        result = NO;
+    }
+    
+    free(propertyValue);
+    
+    return result;
 }
 
 
-- (BOOL) textAlignmentIsSet {
-    return _textAlignmentSet;
-}
-
-
-- (void) unsetTextAlignment {
-    _textAlignmentSet = NO;
-}
-
-
-- (void) setTextAlignment: (ModernStyleTextAlignment) textAlignment {
-    _textAlignmentSet = YES;
-    _textAlignment = textAlignment;
-}
-
-
-+ (ModernStyleTextAlignment) defaultTextAlignment {
-    return LeftModernStyleTextAlignment;
-}
-
-
-- (ModernStyleTextAlignment) textAlignment {
-	if(_textAlignmentSet) return _textAlignment;
-	if([self parent]) return [[self parent] textAlignment];
-	return [[self class] defaultTextAlignment];
-}
-
-
-- (ModernStyleTextAlignment) computedTextAlignment {
-	ModernStyleTextAlignment local = [self textAlignment];
-	if(local == InheritModernStyleTextAlignment) {
-	    ModernStyle *container = [self container];
-	    if(container) return [container computedTextAlignment];
-	    else return [[self class] defaultTextAlignment];
-	}
-	else return local;
+- (BOOL) setPropertyToInitialValue: (NSString *) name
+{
+    BOOL result = YES;
+    
+    size_t propertySize = [ModernStyle propertyInitialValueSize: name];
+    
+    void *propertyValue = malloc(propertySize);
+    
+    if([ModernStyle copyPropertyInitialValue: name
+                    data: propertyValue
+                    size: propertySize])
+    {
+        if(![self setProperty: propertyName
+                  data: propertyValue
+                  size: propertySize])
+        {
+            result = NO;
+        }
+    } else {
+        result = NO;
+    }
+    
+    free(propertyValue);
+    
+    return result
 }
 
 @end
