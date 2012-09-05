@@ -99,10 +99,9 @@
                     return YES;
                 }
                 perform: ^(DocumentView *documentView) {
-                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [self setSubmode: addNewIntegerTypeSchemaModeSubmode];
                     [[documentView documentWindowController] updateAdvice];
                     [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
-                    NSLog(@"Add integer type...");
                 }]];
         [_addNewTypeCommands addObject:
             [[Command alloc]
@@ -117,10 +116,9 @@
                     return YES;
                 }
                 perform: ^(DocumentView *documentView) {
-                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [self setSubmode: addNewNaturalTypeSchemaModeSubmode];
                     [[documentView documentWindowController] updateAdvice];
                     [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
-                    NSLog(@"Add natural-number type...");
                 }]];
         [_addNewTypeCommands addObject:
             [[Command alloc]
@@ -135,10 +133,9 @@
                     return YES;
                 }
                 perform: ^(DocumentView *documentView) {
-                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [self setSubmode: addNewFloatingTypeSchemaModeSubmode];
                     [[documentView documentWindowController] updateAdvice];
                     [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
-                    NSLog(@"Add floating-point type...");
                 }]];
         [_addNewTypeCommands addObject:
             [[Command alloc]
@@ -177,10 +174,16 @@
                     return YES;
                 }
                 perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
                     [self setSubmode: topLevelSchemaModeSubmode];
                     [[documentView documentWindowController] updateAdvice];
                     [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
-                    NSLog(@"Add binary large-object type.");
+                    
+                    Modern *node = [Modern makeBlobType];
+                    [document addSchemaNode: node];
                 }]];
         [_addNewTypeCommands addObject:
             [[Command alloc]
@@ -201,6 +204,327 @@
                     NSLog(@"Add sigma type.");
                 }]];
         [_addNewTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"\x1B"
+                headline: ^(DocumentView *documentView) {
+                    return @"Cancel adding type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [[documentView documentWindowController] updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                }]];
+        
+        _addNewIntegerTypeCommands = [NSMutableArray arrayWithCapacity: 16];
+        [_addNewIntegerTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"1"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 8-bit signed integer type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeInt8Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewIntegerTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"2"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 16-bit signed integer type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeInt16Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewIntegerTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"3"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 32-bit signed integer type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeInt32Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewIntegerTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"4"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 64-bit signed integer type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeInt64Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewIntegerTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"\x1B"
+                headline: ^(DocumentView *documentView) {
+                    return @"Cancel adding type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [[documentView documentWindowController] updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                }]];
+
+        _addNewNaturalTypeCommands = [NSMutableArray arrayWithCapacity: 16];
+        [_addNewNaturalTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"1"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 8-bit natural number type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeNat8Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewNaturalTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"2"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 16-bit natural number type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeNat16Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewNaturalTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"3"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 32-bit natural number type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeNat32Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewNaturalTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"4"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 64-bit natural number type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeNat64Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewNaturalTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"\x1B"
+                headline: ^(DocumentView *documentView) {
+                    return @"Cancel adding type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [[documentView documentWindowController] updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                }]];
+        
+        _addNewFloatingTypeCommands = [NSMutableArray arrayWithCapacity: 16];
+        [_addNewFloatingTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"1"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 32-bit floating point type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeFloat32Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewFloatingTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"2"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 64-bit floating point type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeFloat64Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewFloatingTypeCommands addObject:
+            [[Command alloc]
+                initWithCharacters: @"3"
+                headline: ^(DocumentView *documentView) {
+                    return @"Add 128-bit floating point type.";
+                }
+                isVisible: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                isEnabled: ^(DocumentView *documentView) {
+                    return YES;
+                }
+                perform: ^(DocumentView *documentView) {
+                    DocumentWindowController *documentWindowController =
+                        [documentView documentWindowController];
+                    Document *document = [documentWindowController document];
+                    
+                    [self setSubmode: topLevelSchemaModeSubmode];
+                    [documentWindowController updateAdvice];
+                    [(AppDelegate *) [NSApp delegate] adviceNeedsDisplay];
+                    
+                    Modern *node = [Modern makeFloat128Type];
+                    [document addSchemaNode: node];
+                }]];
+        [_addNewFloatingTypeCommands addObject:
             [[Command alloc]
                 initWithCharacters: @"\x1B"
                 headline: ^(DocumentView *documentView) {
@@ -353,6 +677,9 @@
     switch([self submode]) {
     case topLevelSchemaModeSubmode: return _topLevelCommands;
     case addNewTypeSchemaModeSubmode: return _addNewTypeCommands;
+    case addNewIntegerTypeSchemaModeSubmode: return _addNewIntegerTypeCommands;
+    case addNewNaturalTypeSchemaModeSubmode: return _addNewNaturalTypeCommands;
+    case addNewFloatingTypeSchemaModeSubmode: return _addNewFloatingTypeCommands;
     case addNewValueSchemaModeSubmode: return _addNewValueCommands;
     default: return [NSArray arrayWithObjects: nil];
     }

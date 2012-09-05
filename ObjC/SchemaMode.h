@@ -12,12 +12,18 @@
 typedef enum {
     topLevelSchemaModeSubmode,
     addNewTypeSchemaModeSubmode,
+    addNewIntegerTypeSchemaModeSubmode,
+    addNewNaturalTypeSchemaModeSubmode,
+    addNewFloatingTypeSchemaModeSubmode,
     addNewValueSchemaModeSubmode,
 } SchemaModeSubmode;
 
 @interface SchemaMode : NSObject <Mode> {
     NSMutableArray *_topLevelCommands;
     NSMutableArray *_addNewTypeCommands;
+    NSMutableArray *_addNewIntegerTypeCommands;
+    NSMutableArray *_addNewNaturalTypeCommands;
+    NSMutableArray *_addNewFloatingTypeCommands;
     NSMutableArray *_addNewValueCommands;
 }
 @property (nonatomic) SchemaModeSubmode submode;
