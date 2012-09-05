@@ -16,6 +16,8 @@
 		9814856215E552510026E714 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856115E552510026E714 /* AppDelegate.m */; };
 		9814856515E555E50026E714 /* AdviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9814856415E555E50026E714 /* AdviceView.m */; };
 		9884318F15E6BFD90057752B /* Modern.m in Sources */ = {isa = PBXBuildFile; fileRef = 9884318E15E6BFD90057752B /* Modern.m */; };
+		9893EBFE15F7D0F600AEE6B1 /* ModernStyleContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9893EBFD15F7D0F600AEE6B1 /* ModernStyleContent.m */; };
+		9893EC0215F7D8D500AEE6B1 /* ModernStyleContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9893EC0115F7D8D500AEE6B1 /* ModernStyleContentItem.m */; };
 		98ABA22B15F675CE00245CD1 /* ModernStyleSelectorNodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ABA22A15F675CE00245CD1 /* ModernStyleSelectorNodeType.m */; };
 		98ABA22E15F67A9600245CD1 /* ModernStyleRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ABA22D15F67A9600245CD1 /* ModernStyleRule.m */; };
 		98ABA23115F6854200245CD1 /* ModernStyleSelectorWild.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ABA23015F6854200245CD1 /* ModernStyleSelectorWild.m */; };
@@ -55,6 +57,10 @@
 		9814856415E555E50026E714 /* AdviceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdviceView.m; sourceTree = "<group>"; };
 		9884318D15E6BFD90057752B /* Modern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Modern.h; path = ObjC/Modern.h; sourceTree = "<group>"; };
 		9884318E15E6BFD90057752B /* Modern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Modern.m; path = ObjC/Modern.m; sourceTree = "<group>"; };
+		9893EBFC15F7D0F600AEE6B1 /* ModernStyleContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleContent.h; path = ObjC/ModernStyleContent.h; sourceTree = "<group>"; };
+		9893EBFD15F7D0F600AEE6B1 /* ModernStyleContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleContent.m; path = ObjC/ModernStyleContent.m; sourceTree = "<group>"; };
+		9893EC0015F7D8D500AEE6B1 /* ModernStyleContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleContentItem.h; path = ObjC/ModernStyleContentItem.h; sourceTree = "<group>"; };
+		9893EC0115F7D8D500AEE6B1 /* ModernStyleContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleContentItem.m; path = ObjC/ModernStyleContentItem.m; sourceTree = "<group>"; };
 		98ABA22815F6754000245CD1 /* ModernStyleSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModernStyleSelector.h; path = ObjC/ModernStyleSelector.h; sourceTree = "<group>"; };
 		98ABA22915F675CE00245CD1 /* ModernStyleSelectorNodeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleSelectorNodeType.h; path = ObjC/ModernStyleSelectorNodeType.h; sourceTree = "<group>"; };
 		98ABA22A15F675CE00245CD1 /* ModernStyleSelectorNodeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleSelectorNodeType.m; path = ObjC/ModernStyleSelectorNodeType.m; sourceTree = "<group>"; };
@@ -140,6 +146,10 @@
 				98ABA22A15F675CE00245CD1 /* ModernStyleSelectorNodeType.m */,
 				98ABA22C15F67A9600245CD1 /* ModernStyleRule.h */,
 				98ABA22D15F67A9600245CD1 /* ModernStyleRule.m */,
+				9893EBFC15F7D0F600AEE6B1 /* ModernStyleContent.h */,
+				9893EBFD15F7D0F600AEE6B1 /* ModernStyleContent.m */,
+				9893EC0015F7D8D500AEE6B1 /* ModernStyleContentItem.h */,
+				9893EC0115F7D8D500AEE6B1 /* ModernStyleContentItem.m */,
 			);
 			name = "Modern Data";
 			path = ..;
@@ -343,6 +353,8 @@
 				98ABA22B15F675CE00245CD1 /* ModernStyleSelectorNodeType.m in Sources */,
 				98ABA22E15F67A9600245CD1 /* ModernStyleRule.m in Sources */,
 				98ABA23115F6854200245CD1 /* ModernStyleSelectorWild.m in Sources */,
+				9893EBFE15F7D0F600AEE6B1 /* ModernStyleContent.m in Sources */,
+				9893EC0215F7D8D500AEE6B1 /* ModernStyleContentItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

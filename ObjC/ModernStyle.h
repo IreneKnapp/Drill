@@ -24,11 +24,14 @@ typedef enum {
     InheritModernStyleTextAlignment,
 } ModernStyleTextAlignment;
 
+@class ModernStyleContent;
 @interface ModernStyle : NSObject {
 	BOOL _displaySet;
 	ModernStyleDisplay _display;
 	BOOL _textAlignmentSet;
 	ModernStyleTextAlignment _textAlignment;
+	BOOL _contentSet;
+	ModernStyleContent *_content;
 }
 
 + (NSArray *) allProperties;
@@ -39,6 +42,7 @@ typedef enum {
 - (id) init;
 - (size_t) propertySize: (NSString *) name;
 - (BOOL) propertyIsSet: (NSString *) name;
+- (BOOL) propertyIsInherit: (NSString *) name;
 - (BOOL) copyProperty: (NSString *) name
          data: (void *) data
          size: (size_t) propertySize;

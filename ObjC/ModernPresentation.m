@@ -8,6 +8,8 @@
 
 #import "ModernPresentation.h"
 #import "ModernStyle.h"
+#import "ModernStyleContent.h"
+#import "ModernStyleContentItem.h"
 #import "ModernStyleRule.h"
 #import "ModernStyleSelector.h"
 
@@ -59,17 +61,17 @@
 
 
 - (void) recomputeStyleWithSheets: (NSArray *) styleSheets {
-    ModernStyle *containerStyle = nil;
-    if(_parent) containerStyle = [_parent computedStyle];
     ModernStyle *computedStyle = [[ModernStyle alloc] init];
     
     for(NSString *propertyName in [ModernStyle allProperties]) {
         BOOL found = NO;
+        uint8_t foundSpecificity = 0;
         
         if([_style propertyIsSet: propertyName]) {
             [computedStyle setProperty: propertyName
                            from: _style];
             found = YES;
+            foundSpecificity = 255;
         }
         
         for(NSArray *styleSheet in styleSheets) {
@@ -78,16 +80,25 @@
             for(ModernStyleRule *rule in styleSheet) {
                 if([[rule selector] test: self]) {
                     if([[rule style] propertyIsSet: propertyName]) {
-                        [computedStyle setProperty: propertyName
-                                       from: [rule style]];
-                        found = YES;
+                        uint8_t specificity = [[rule selector] specificity];
+                        if(!found || (specificity >= foundSpecificity)) {
+                            [computedStyle setProperty: propertyName
+                                           from: [rule style]];
+                            found = YES;
+                            foundSpecificity = specificity;
+                        }
                     }
                 }
             }
         }
         
         if(!found) {
-            
+            [computedStyle setPropertyToInitialValue: propertyName];
+        }
+        
+        if([computedStyle propertyIsInherit: propertyName] && _parent) {
+            [computedStyle setProperty: propertyName
+                           from: [_parent computedStyle]];
         }
     }
     
@@ -104,11 +115,24 @@
     
     ModernStyle *style = [self computedStyle];
     if(style) {
-        [result appendString: @"("];
-        for(ModernPresentation *child in _children) {
-            [result appendString: [child text]];
+        ModernStyleContent *content;
+        [style copyProperty: @"content"
+               data: &content
+               size: sizeof(content)];
+        
+        if([content isContentList]) {
+            for(size_t itemIndex = 0; itemIndex < [content count]; itemIndex++) {
+                ModernStyleContentItem *item = [content itemAtIndex: itemIndex];
+                
+                if([item isContents]) {
+                    for(ModernPresentation *child in _children) {
+                        [result appendString: [child text]];
+                    }
+                } else if([item isString]) {
+                    [result appendString: [item stringValue]];
+                }
+            }
         }
-        [result appendString: @")"];
     }
     
     return (NSString *) result;

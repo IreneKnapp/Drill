@@ -7,6 +7,7 @@
 //
 
 #import "ModernStyle.h"
+#import "ModernStyleContent.h"
 
 @implementation ModernStyle
 
@@ -17,6 +18,7 @@
         result = [NSMutableArray arrayWithCapacity: 8];
         [result addObject: @"display"];
         [result addObject: @"text-alignment"];
+        [result addObject: @"content"];
     }
     
     return (NSArray *) result;
@@ -28,6 +30,8 @@
         return sizeof(ModernStyleDisplay);
     } else if([name isEqualToString: @"text-alignment"]) {
         return sizeof(ModernStyleTextAlignment);
+    } else if([name isEqualToString: @"content"]) {
+        return sizeof(ModernStyleContent *);
     } else {
         return 0;
     }
@@ -44,6 +48,9 @@
         *((ModernStyleDisplay *) data) = NoneModernStyleDisplay;
     } else if([name isEqualToString: @"text-alignment"]) {
         *((ModernStyleTextAlignment *) data) = LeftModernStyleTextAlignment;
+    } else if([name isEqualToString: @"content"]) {
+        id result = [[ModernStyleContent alloc] initAsNone];
+        *((void **) data) = (__bridge_retained void *) result;
     } else {
         return NO;
     }
@@ -57,6 +64,8 @@
 	if(self) {
 		_displaySet = NO;
 		_textAlignmentSet = NO;
+		_contentSet = NO;
+		_content = nil;
 	}
 	return self;
 }
@@ -67,6 +76,8 @@
         return sizeof(ModernStyleDisplay);
     } else if([name isEqualToString: @"text-alignment"]) {
         return sizeof(ModernStyleTextAlignment);
+    } else if([name isEqualToString: @"content"]) {
+        return sizeof(ModernStyleContent *__strong *);
     } else {
         return 0;
     }
@@ -78,6 +89,23 @@
         return _displaySet;
     } else if([name isEqualToString: @"text-alignment"]) {
         return _textAlignmentSet;
+    } else if([name isEqualToString: @"content"]) {
+        return _contentSet;
+    } else {
+        return NO;
+    }
+}
+
+
+- (BOOL) propertyIsInherit: (NSString *) name {
+    if(![self propertyIsSet: name]) return NO;
+    
+    if([name isEqualToString: @"display"]) {
+        return _display == InheritModernStyleDisplay;
+    } else if([name isEqualToString: @"text-alignment"]) {
+        return _textAlignment == InheritModernStyleTextAlignment;
+    } else if([name isEqualToString: @"content"]) {
+        return NO;
     } else {
         return NO;
     }
@@ -95,6 +123,8 @@
         *((ModernStyleDisplay *) data) = _display;
     } else if([name isEqualToString: @"text-alignment"]) {
         *((ModernStyleTextAlignment *) data) = _textAlignment;
+    } else if([name isEqualToString: @"content"]) {
+        *((void **) data) = (__bridge_retained void *) _content;
     } else {
         return NO;
     }
@@ -115,6 +145,9 @@
     } else if([name isEqualToString: @"text-alignment"]) {
         _textAlignmentSet = YES;
         _textAlignment = *(ModernStyleTextAlignment *) data;
+    } else if([name isEqualToString: @"content"]) {
+        _contentSet = YES;
+        _content = (__bridge id) *(void **) data;
     } else {
         return NO;
     }
@@ -128,6 +161,9 @@
         _displaySet = NO;
     } else if([name isEqualToString: @"text-alignment"]) {
         _textAlignmentSet = NO;
+    } else if([name isEqualToString: @"content"]) {
+        _contentSet = NO;
+        _content = nil;
     } else {
         return NO;
     }

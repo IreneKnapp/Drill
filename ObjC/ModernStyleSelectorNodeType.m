@@ -31,4 +31,9 @@
     return [node nodeType] == _nodeType;
 }
 
+
+- (uint8_t) specificity {
+    return 1;
+}
+
 @end

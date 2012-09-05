@@ -10,11 +10,15 @@
 #import "AdviceView.h"
 #import "Command.h"
 #import "Document.h"
-#import "SchemaMode.h"
+#import "Modern.h"
 #import "ModernStyle.h"
+#import "ModernStyleContent.h"
+#import "ModernStyleContentItem.h"
 #import "ModernStyleRule.h"
 #import "ModernStyleSelector.h"
+#import "ModernStyleSelectorNodeType.h"
 #import "ModernStyleSelectorWild.h"
+#import "SchemaMode.h"
 
 @implementation AppDelegate
 
@@ -23,10 +27,104 @@
     
     _styleSheet = [NSMutableArray arrayWithCapacity: 64];
     
+    ModernNodeType simpleNodeTypes[] = {
+        int8ValueModernNodeType,
+        int16ValueModernNodeType,
+        int32ValueModernNodeType,
+        int64ValueModernNodeType,
+        nat8ValueModernNodeType,
+        nat16ValueModernNodeType,
+        nat32ValueModernNodeType,
+        nat64ValueModernNodeType,
+        float32ValueModernNodeType,
+        float64ValueModernNodeType,
+        float128ValueModernNodeType,
+        utf8ValueModernNodeType,
+        blobValueModernNodeType,
+        sigmaValueModernNodeType,
+        namedValueModernNodeType,
+        int8TypeModernNodeType,
+        int16TypeModernNodeType,
+        int32TypeModernNodeType,
+        int64TypeModernNodeType,
+        nat8TypeModernNodeType,
+        nat16TypeModernNodeType,
+        nat32TypeModernNodeType,
+        nat64TypeModernNodeType,
+        float32TypeModernNodeType,
+        float64TypeModernNodeType,
+        float128TypeModernNodeType,
+        utf8TypeModernNodeType,
+        blobTypeModernNodeType,
+        sigmaTypeModernNodeType,
+        namedTypeModernNodeType,
+        universeTypeModernNodeType,
+    };
+    
+    NSString *simpleNames[] = {
+        @"int8-value",
+        @"int16-value",
+        @"int32-value",
+        @"int64-value",
+        @"nat8-value",
+        @"nat16-value",
+        @"nat32-value",
+        @"nat64-value",
+        @"float32-value",
+        @"float64-value",
+        @"float128-value",
+        @"utf8-value",
+        @"blob-value",
+        @"sigma-value",
+        @"named-value",
+        @"int8-type",
+        @"int16-type",
+        @"int32-type",
+        @"int64-type",
+        @"nat8-type",
+        @"nat16-type",
+        @"nat32-type",
+        @"nat64-type",
+        @"float32-type",
+        @"float64-type",
+        @"float128-type",
+        @"utf8-type",
+        @"blob-type",
+        @"sigma-type",
+        @"named-type",
+        @"universe-type",
+    };
+    
+    for(size_t i = 0; i < 31; i++) {
+        id <ModernStyleSelector> selector =
+            [[ModernStyleSelectorNodeType alloc]
+                initWithNodeType: simpleNodeTypes[i]];
+        ModernStyle *style = [[ModernStyle alloc] init];
+        ModernStyleContent *content =
+            [[ModernStyleContent alloc] initAsContentList];
+        [content addItem: [[ModernStyleContentItem alloc]
+                               initAsString: simpleNames[i]]];
+        [style setProperty: @"content"
+               data: &content
+               size: sizeof(content)];
+        ModernStyleRule *rule =
+            [[ModernStyleRule alloc] initWithSelector: selector
+                                     style: style];
+        
+        [_styleSheet addObject: rule];
+    }
+    
     {
         id <ModernStyleSelector> selector =
             [[ModernStyleSelectorWild alloc] init];
         ModernStyle *style = [[ModernStyle alloc] init];
+        
+        ModernStyleContent *content =
+            [[ModernStyleContent alloc] initAsContentList];
+        [content addItem: [[ModernStyleContentItem alloc] initAsContents]];
+        [style setProperty: @"content"
+               data: &content
+               size: sizeof(content)];
         ModernStyleRule *rule =
             [[ModernStyleRule alloc] initWithSelector: selector
                                      style: style];

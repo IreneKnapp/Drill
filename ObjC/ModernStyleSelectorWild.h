@@ -13,4 +13,5 @@
 
 - (id) init;
 - (BOOL) test: (ModernPresentation *) presentation;
+- (uint8_t) specificity;
 @end

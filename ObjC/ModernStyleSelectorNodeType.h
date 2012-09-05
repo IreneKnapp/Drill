@@ -17,4 +17,5 @@
 - (id) initWithNodeType: (ModernNodeType) nodeType;
 - (ModernNodeType) nodeType;
 - (BOOL) test: (ModernPresentation *) presentation;
+- (uint8_t) specificity;
 @end

@@ -20,4 +20,9 @@
     return YES;
 }
 
+
+- (uint8_t) specificity {
+    return 0;
+}
+
 @end
