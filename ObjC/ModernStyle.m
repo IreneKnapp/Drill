@@ -145,11 +145,11 @@
     
     void *propertyValue = malloc(propertySize);
     
-    if([otherStyle copyProperty: propertyName
+    if([otherStyle copyProperty: name
                    data: propertyValue
                    size: propertySize])
     {
-        if(![self setProperty: propertyName
+        if(![self setProperty: name
                   data: propertyValue
                   size: propertySize])
         {
@@ -177,7 +177,7 @@
                     data: propertyValue
                     size: propertySize])
     {
-        if(![self setProperty: propertyName
+        if(![self setProperty: name
                   data: propertyValue
                   size: propertySize])
         {
@@ -189,7 +189,7 @@
     
     free(propertyValue);
     
-    return result
+    return result;
 }
 
 @end

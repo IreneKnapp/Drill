@@ -50,18 +50,6 @@
         _schemaLayoutManager =
             [[LayoutManager alloc] initWithPresentation:
                 [[self document] schemaPresentation]];
-        /*
-        unichar characters[8];
-        characters[0] = 'F';
-        characters[1] = 'o';
-        characters[2] = 'o';
-        characters[3] = '\n';
-        characters[4] = 'B';
-        characters[5] = 'a';
-        characters[6] = 'r';
-        characters[7] = '\n';
-        [_schemaLayoutManager appendCharacters: characters count: 8];
-        */
     }
     
     Document *document = [self document];
