@@ -11,20 +11,43 @@
 @class Modern;
 @class ModernStyle;
 @interface ModernPresentation : NSObject {
-	NSMutableArray *_children;
-	ModernPresentation *_parent;
+	NSMutableArray *_structuralChildren;
+	ModernPresentation *_structuralParent;
+	ModernPresentation *_inheritanceParent;
+	ModernPresentation *_generatedChildBefore;
+	ModernPresentation *_generatedChildAfter;
+	ModernPresentation *_generatedChildAround;
 }
 @property (strong, nonatomic) Modern *node;
 @property (strong, nonatomic) ModernStyle *style;
 @property (strong, nonatomic) ModernStyle *computedStyle;
 
 - (id) initWithNode: (Modern *) node;
-- (NSArray *) children;
-- (void) addChild: (ModernPresentation *) child;
-- (void) addChild: (ModernPresentation *) child
+
+- (NSArray *) structuralChildren;
+- (void) addStructuralChild: (ModernPresentation *) child;
+- (void) addStructuralChild: (ModernPresentation *) child
          atIndex: (NSUInteger) index;
-- (ModernPresentation *) getParent;
-- (void) setParent: (ModernPresentation *) parent;
-- (void) recomputeStyleWithSheets: (NSArray *) styleSheets;
+- (ModernPresentation *) getStructuralParent;
+- (void) setStructuralParent: (ModernPresentation *) parent;
+- (NSUInteger) indexOfStructuralChild: (ModernPresentation *) child;
+
+- (ModernPresentation *) getInheritanceParent;
+- (void) setInheritanceParent: (ModernPresentation *) parent;
+
+- (BOOL) hasGeneratedChildBefore;
+- (void) removeGeneratedChildBefore;
+- (ModernPresentation *) generatedChildBefore;
+
+- (BOOL) hasGeneratedChildAfter;
+- (void) removeGeneratedChildAfter;
+- (ModernPresentation *) generatedChildAfter;
+
+- (BOOL) hasGeneratedChildAround;
+- (void) removeGeneratedChildAround;
+- (ModernPresentation *) generatedChildAround;
+
+- (void) recomputeStyleWithSheets: (NSArray *) styleSheets
+         evenIfGenerated: (BOOL) evenIfGenerated;
 - (NSString *) text;
 @end

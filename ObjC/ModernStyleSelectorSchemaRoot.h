@@ -1,5 +1,5 @@
 //
-//  ModernStyleSelectorNodeType.h
+//  ModernStyleSelectorSchemaRoot.h
 //  Drill
 //
 //  Created by Irene Knapp on 9/4/12.
@@ -7,15 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Modern.h"
 #import "ModernStyleSelector.h"
 
-@interface ModernStyleSelectorNodeType : NSObject <ModernStyleSelector> {
-    ModernNodeType _nodeType;
-}
+@interface ModernStyleSelectorSchemaRoot : NSObject <ModernStyleSelector>
 
-- (id) initWithNodeType: (ModernNodeType) nodeType;
-- (ModernNodeType) nodeType;
+- (id) init;
 - (BOOL) test: (ModernPresentation *) presentation;
 - (uint8_t) specificity;
 - (BOOL) pseudoElement;

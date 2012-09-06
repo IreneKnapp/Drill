@@ -62,7 +62,7 @@
                                    applicationStyleSheet,
                                    nil];
     
-    [presentation recomputeStyleWithSheets: styleSheets];
+    [presentation recomputeStyleWithSheets: styleSheets evenIfGenerated: NO];
     
     [_schemaLayoutManager removeAllCharacters];
     NSString *text = [presentation text];

@@ -19,48 +19,174 @@
 	self = [super init];
 	if(self) {
 		[self setNode: node];
-		_children = [NSMutableArray arrayWithCapacity: 8];
-		_parent = nil;
+		_structuralChildren = [NSMutableArray arrayWithCapacity: 8];
+		_structuralParent = nil;
+		_inheritanceParent = nil;
 		_computedStyle = nil;
+		_generatedChildBefore = nil;
+		_generatedChildAfter = nil;
+		_generatedChildAround = nil;
 	}
 	return self;
 }
 
 
-- (NSArray *) children {
-	return (NSArray *) _children;
+- (NSArray *) structuralChildren {
+	return (NSArray *) _structuralChildren;
 }
 
 
-- (void) addChild: (ModernPresentation *) child {
-	if(child->_parent) [child->_parent->_children removeObject: child];
-	[_children addObject: child];
-	child->_parent = self;
+- (void) addStructuralChild: (ModernPresentation *) child {
+	if(child->_structuralParent)
+	    [child->_structuralParent->_structuralChildren removeObject: child];
+	[_structuralChildren addObject: child];
+	child->_structuralParent = self;
 }
 
 
-- (void) addChild: (ModernPresentation *) child
+- (void) addStructuralChild: (ModernPresentation *) child
          atIndex: (NSUInteger) index
 {
-	if(child->_parent) [child->_parent->_children removeObject: child];
-	[_children insertObject: child atIndex: index];
-	child->_parent = self;
+	if(child->_structuralParent)
+	    [child->_structuralParent->_structuralChildren removeObject: child];
+	[_structuralChildren insertObject: child atIndex: index];
+	child->_structuralParent = self;
 }
 
 
-- (ModernPresentation *) getParent {
-	return _parent;
+- (ModernPresentation *) getStructuralParent {
+	return _structuralParent;
 }
 
 
-- (void) setParent: (ModernPresentation *) parent {
-	if(_parent) [_parent->_children removeObject: self];
-	[parent->_children addObject: self];
-	_parent = parent;
+- (void) setStructuralParent: (ModernPresentation *) parent {
+	if(_structuralParent) [_structuralParent->_structuralChildren removeObject: self];
+	[parent->_structuralChildren addObject: self];
+	_structuralParent = parent;
 }
 
 
-- (void) recomputeStyleWithSheets: (NSArray *) styleSheets {
+- (NSUInteger) indexOfStructuralChild: (ModernPresentation *) child {
+    return [_structuralChildren indexOfObject: child];
+}
+
+
+- (ModernPresentation *) getInheritanceParent {
+	return _inheritanceParent;
+}
+
+
+- (void) setInheritanceParent: (ModernPresentation *) parent {
+	_inheritanceParent = parent;
+}
+
+
+- (BOOL) hasGeneratedChildBefore {
+    if(!_structuralParent) return NO;
+    return _generatedChildBefore != nil;
+}
+
+
+- (void) removeGeneratedChildBefore {
+    if(!_structuralParent) return;
+    if(_generatedChildBefore)
+        [_generatedChildBefore setStructuralParent: nil];
+    _generatedChildBefore = nil;
+}
+
+
+- (ModernPresentation *) generatedChildBefore {
+    if(!_structuralParent) return nil;
+    if(!_generatedChildBefore) {
+        NSUInteger selfIndex =
+            [_structuralParent indexOfStructuralChild: self];
+        _generatedChildBefore =
+            [[ModernPresentation alloc] initWithNode: nil];
+        [_generatedChildBefore setInheritanceParent: self];
+        [_structuralParent addStructuralChild: _generatedChildBefore
+                           atIndex: selfIndex];
+    }
+    return _generatedChildBefore;
+}
+
+
+- (BOOL) hasGeneratedChildAfter {
+    if(!_structuralParent) return NO;
+    return _generatedChildAfter != nil;
+}
+
+
+- (void) removeGeneratedChildAfter {
+    if(!_structuralParent) return;
+    if(_generatedChildAfter)
+        [_generatedChildAfter setStructuralParent: nil];
+    _generatedChildAfter = nil;
+}
+
+
+- (ModernPresentation *) generatedChildAfter {
+    if(!_structuralParent) return nil;
+    if(!_generatedChildAfter) {
+        NSUInteger selfIndex =
+            [_structuralParent indexOfStructuralChild: self];
+        _generatedChildAfter =
+            [[ModernPresentation alloc] initWithNode: nil];
+        [_generatedChildAfter setInheritanceParent: self];
+        [_structuralParent addStructuralChild: _generatedChildAfter
+                           atIndex: selfIndex + 1];
+    }
+    return _generatedChildAfter;
+}
+
+
+- (BOOL) hasGeneratedChildAround {
+    if(!_structuralParent) return NO;
+    return _generatedChildAround != nil;
+}
+
+
+- (void) removeGeneratedChildAround {
+    if(!_structuralParent) return;
+    if(_generatedChildAround)
+        [_generatedChildAround setStructuralParent: nil];
+    _generatedChildAround = nil;
+}
+
+
+- (ModernPresentation *) generatedChildAround {
+    if(!_structuralParent) return nil;
+    if(!_generatedChildAround) {
+        NSUInteger selfIndex =
+            [_structuralParent indexOfStructuralChild: self];
+        _generatedChildAround =
+            [[ModernPresentation alloc] initWithNode: nil];
+        [_generatedChildAround setInheritanceParent: self];
+        [_structuralParent addStructuralChild: _generatedChildAround
+                           atIndex: selfIndex];
+        [_generatedChildAround addStructuralChild: self];
+    }
+    return _generatedChildAround;
+}
+
+
+- (void) recomputeStyleWithSheets: (NSArray *) styleSheets
+         evenIfGenerated: (BOOL) evenIfGenerated
+{
+    if(!evenIfGenerated && ![self node] && _inheritanceParent) {
+        for(ModernPresentation *child in _structuralChildren) {
+            [child recomputeStyleWithSheets: styleSheets
+                   evenIfGenerated: NO];
+        }
+        
+        return;
+    }
+    
+    for(NSArray *styleSheet in styleSheets) {
+        for(ModernStyleRule *rule in styleSheet) {
+            [[rule selector] generateIfNecessary: self];
+        }
+    }
+    
     ModernStyle *computedStyle = [[ModernStyle alloc] init];
     
     for(NSString *propertyName in [ModernStyle allProperties]) {
@@ -96,16 +222,27 @@
             [computedStyle setPropertyToInitialValue: propertyName];
         }
         
-        if([computedStyle propertyIsInherit: propertyName] && _parent) {
+        if([computedStyle propertyIsInherit: propertyName] && _inheritanceParent) {
             [computedStyle setProperty: propertyName
-                           from: [_parent computedStyle]];
+                           from: [_inheritanceParent computedStyle]];
         }
     }
     
     [self setComputedStyle: computedStyle];
     
-    for(ModernPresentation *child in _children) {
-        [child recomputeStyleWithSheets: styleSheets];
+    if(_generatedChildBefore)
+        [_generatedChildBefore recomputeStyleWithSheets: styleSheets
+                               evenIfGenerated: YES];
+    if(_generatedChildAfter)
+        [_generatedChildAfter recomputeStyleWithSheets: styleSheets
+                              evenIfGenerated: YES];
+    if(_generatedChildAround)
+        [_generatedChildAround recomputeStyleWithSheets: styleSheets
+                               evenIfGenerated: YES];
+    
+    for(ModernPresentation *child in _structuralChildren) {
+        [child recomputeStyleWithSheets: styleSheets
+               evenIfGenerated: NO];
     }
 }
 
@@ -125,7 +262,7 @@
                 ModernStyleContentItem *item = [content itemAtIndex: itemIndex];
                 
                 if([item isContents]) {
-                    for(ModernPresentation *child in _children) {
+                    for(ModernPresentation *child in _structuralChildren) {
                         [result appendString: [child text]];
                     }
                 } else if([item isString]) {

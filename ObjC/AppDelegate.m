@@ -16,6 +16,8 @@
 #import "ModernStyleContentItem.h"
 #import "ModernStyleRule.h"
 #import "ModernStyleSelector.h"
+#import "ModernStyleSelectorAfter.h"
+#import "ModernStyleSelectorBefore.h"
 #import "ModernStyleSelectorNodeType.h"
 #import "ModernStyleSelectorWild.h"
 #import "SchemaMode.h"
@@ -104,6 +106,42 @@
             [[ModernStyleContent alloc] initAsContentList];
         [content addItem: [[ModernStyleContentItem alloc]
                                initAsString: simpleNames[i]]];
+        [style setProperty: @"content"
+               data: &content
+               size: sizeof(content)];
+        ModernStyleRule *rule =
+            [[ModernStyleRule alloc] initWithSelector: selector
+                                     style: style];
+        
+        [_styleSheet addObject: rule];
+    }
+    
+    {
+        id <ModernStyleSelector> selector =
+            [[ModernStyleSelectorBefore alloc]
+                initWithPrimary: [[ModernStyleSelectorWild alloc] init]];
+        ModernStyle *style = [[ModernStyle alloc] init];
+        ModernStyleContent *content =
+            [[ModernStyleContent alloc] initAsContentList];
+        [content addItem: [[ModernStyleContentItem alloc] initAsString: @"("]];
+        [style setProperty: @"content"
+               data: &content
+               size: sizeof(content)];
+        ModernStyleRule *rule =
+            [[ModernStyleRule alloc] initWithSelector: selector
+                                     style: style];
+        
+        [_styleSheet addObject: rule];
+    }
+    
+    {
+        id <ModernStyleSelector> selector =
+            [[ModernStyleSelectorAfter alloc]
+                initWithPrimary: [[ModernStyleSelectorWild alloc] init]];
+        ModernStyle *style = [[ModernStyle alloc] init];
+        ModernStyleContent *content =
+            [[ModernStyleContent alloc] initAsContentList];
+        [content addItem: [[ModernStyleContentItem alloc] initAsString: @")\n"]];
         [style setProperty: @"content"
                data: &content
                size: sizeof(content)];

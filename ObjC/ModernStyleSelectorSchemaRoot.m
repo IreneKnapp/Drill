@@ -1,39 +1,29 @@
 //
-//  ModernStyleSelectorNodeType.m
+//  ModernStyleSelectorSchemaRoot.m
 //  Drill
 //
 //  Created by Irene Knapp on 9/4/12.
 //  Copyright (c) 2012 Irene Knapp. All rights reserved.
 //
 
-#import "ModernStyleSelectorNodeType.h"
+#import "ModernStyleSelectorSchemaRoot.h"
 #import "ModernPresentation.h"
 
-@implementation ModernStyleSelectorNodeType
+@implementation ModernStyleSelectorSchemaRoot
 
-- (id) initWithNodeType: (ModernNodeType) nodeType {
+- (id) init {
     self = [super init];
-    if(self) {
-        _nodeType = nodeType;
-    }
     return self;
 }
 
 
-- (ModernNodeType) nodeType {
-    return _nodeType;
-}
-
-
 - (BOOL) test: (ModernPresentation *) presentation {
-    Modern *node = [presentation node];
-    if(!node) return NO;
-    return [node nodeType] == _nodeType;
+    return ![presentation node] && ![presentation getInheritanceParent];
 }
 
 
 - (uint8_t) specificity {
-    return 1;
+    return 2;
 }
 
 

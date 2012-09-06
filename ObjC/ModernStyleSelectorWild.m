@@ -7,6 +7,7 @@
 //
 
 #import "ModernStyleSelectorWild.h"
+#import "ModernPresentation.h"
 
 @implementation ModernStyleSelectorWild
 
@@ -17,12 +18,30 @@
 
 
 - (BOOL) test: (ModernPresentation *) presentation {
-    return YES;
+    if([presentation node]) {
+        return YES;
+    } else {
+        if([presentation getInheritanceParent]) {
+            return NO;
+        } else {
+            return YES;
+        }
+    }
 }
 
 
 - (uint8_t) specificity {
     return 0;
+}
+
+
+- (BOOL) pseudoElement {
+    return NO;
+}
+
+
+- (void) generateIfNecessary: (ModernPresentation *) presentation {
+    return;
 }
 
 @end

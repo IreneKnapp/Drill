@@ -13,4 +13,6 @@
 
 - (BOOL) test: (ModernPresentation *) presentation;
 - (uint8_t) specificity;
+- (BOOL) pseudoElement;
+- (void) generateIfNecessary: (ModernPresentation *) presentation;
 @end

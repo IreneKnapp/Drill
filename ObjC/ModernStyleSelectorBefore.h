@@ -1,21 +1,18 @@
 //
-//  ModernStyleSelectorNodeType.h
+//  ModernStyleSelectorBefore.h
 //  Drill
 //
-//  Created by Irene Knapp on 9/4/12.
+//  Created by Irene Knapp on 9/6/12.
 //  Copyright (c) 2012 Irene Knapp. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "Modern.h"
 #import "ModernStyleSelector.h"
 
-@interface ModernStyleSelectorNodeType : NSObject <ModernStyleSelector> {
-    ModernNodeType _nodeType;
-}
+@interface ModernStyleSelectorBefore : NSObject <ModernStyleSelector>
+@property (strong, nonatomic) id <ModernStyleSelector> primary;
 
-- (id) initWithNodeType: (ModernNodeType) nodeType;
-- (ModernNodeType) nodeType;
+- (id) initWithPrimary: (id <ModernStyleSelector>) primary;
 - (BOOL) test: (ModernPresentation *) presentation;
 - (uint8_t) specificity;
 - (BOOL) pseudoElement;
