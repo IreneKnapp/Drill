@@ -18,7 +18,10 @@
 #import "ModernStyleSelector.h"
 #import "ModernStyleSelectorAfter.h"
 #import "ModernStyleSelectorBefore.h"
+#import "ModernStyleSelectorFirstChild.h"
+#import "ModernStyleSelectorImmediateChild.h"
 #import "ModernStyleSelectorNodeType.h"
+#import "ModernStyleSelectorSchemaRoot.h"
 #import "ModernStyleSelectorWild.h"
 #import "SchemaMode.h"
 
@@ -142,6 +145,34 @@
         ModernStyleContent *content =
             [[ModernStyleContent alloc] initAsContentList];
         [content addItem: [[ModernStyleContentItem alloc] initAsString: @")\n"]];
+        [style setProperty: @"content"
+               data: &content
+               size: sizeof(content)];
+        ModernStyleRule *rule =
+            [[ModernStyleRule alloc] initWithSelector: selector
+                                     style: style];
+        
+        [_styleSheet addObject: rule];
+    }
+    
+    {
+        id <ModernStyleSelector> selector =
+            [[ModernStyleSelectorBefore alloc]
+              initWithPrimary:
+                [[ModernStyleSelectorBefore alloc]
+                  initWithPrimary:
+                    [[ModernStyleSelectorImmediateChild alloc]
+                      initWithParent:
+                        [[ModernStyleSelectorSchemaRoot alloc] init]
+                      child:
+                        [[ModernStyleSelectorFirstChild alloc]
+                          initWithPrimary:
+                            [[ModernStyleSelectorWild alloc] init]]]]];
+        ModernStyle *style = [[ModernStyle alloc] init];
+        ModernStyleContent *content =
+            [[ModernStyleContent alloc] initAsContentList];
+        [content addItem: [[ModernStyleContentItem alloc]
+                 initAsString: @"Schema Mode\n"]];
         [style setProperty: @"content"
                data: &content
                size: sizeof(content)];

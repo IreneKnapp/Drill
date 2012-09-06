@@ -53,6 +53,11 @@
 }
 
 
+- (id <ModernStyleSelector>) nonPseudoElementPrimary {
+    return [[self primary] nonPseudoElementPrimary];
+}
+
+
 - (void) generateIfNecessary: (ModernPresentation *) presentation {
     if([[self primary] test: presentation]) {
         (void) [presentation generatedChildAround];

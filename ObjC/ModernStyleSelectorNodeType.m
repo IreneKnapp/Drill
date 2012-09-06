@@ -42,6 +42,11 @@
 }
 
 
+- (id <ModernStyleSelector>) nonPseudoElementPrimary {
+    return self;
+}
+
+
 - (void) generateIfNecessary: (ModernPresentation *) presentation {
     return;
 }

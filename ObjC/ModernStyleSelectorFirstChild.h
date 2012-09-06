@@ -1,15 +1,15 @@
 //
-//  ModernStyleSelectorAfter.h
+//  ModernStyleSelectorFirstChild.h
 //  Drill
 //
-//  Created by Irene Knapp on 9/6/12.
+//  Created by Irene Knapp on 9/4/12.
 //  Copyright (c) 2012 Irene Knapp. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "ModernStyleSelector.h"
 
-@interface ModernStyleSelectorAfter : NSObject <ModernStyleSelector>
+@interface ModernStyleSelectorFirstChild : NSObject <ModernStyleSelector>
 @property (strong, nonatomic) id <ModernStyleSelector> primary;
 
 - (id) initWithPrimary: (id <ModernStyleSelector>) primary;

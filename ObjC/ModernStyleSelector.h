@@ -14,5 +14,6 @@
 - (BOOL) test: (ModernPresentation *) presentation;
 - (uint8_t) specificity;
 - (BOOL) pseudoElement;
+- (id <ModernStyleSelector>) nonPseudoElementPrimary;
 - (void) generateIfNecessary: (ModernPresentation *) presentation;
 @end

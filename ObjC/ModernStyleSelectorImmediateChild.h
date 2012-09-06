@@ -1,5 +1,5 @@
 //
-//  ModernStyleSelectorSchemaRoot.h
+//  ModernStyleSelectorImmediateChild.h
 //  Drill
 //
 //  Created by Irene Knapp on 9/4/12.
@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "ModernStyleSelector.h"
 
-@interface ModernStyleSelectorSchemaRoot : NSObject <ModernStyleSelector>
+@interface ModernStyleSelectorImmediateChild : NSObject <ModernStyleSelector>
+@property (strong, nonatomic) id <ModernStyleSelector> parentPrimary;
+@property (strong, nonatomic) id <ModernStyleSelector> childPrimary;
 
-- (id) init;
+- (id) initWithParent: (id <ModernStyleSelector>) parent
+       child: (id <ModernStyleSelector>) child;
 - (BOOL) test: (ModernPresentation *) presentation;
 - (uint8_t) specificity;
 - (BOOL) pseudoElement;

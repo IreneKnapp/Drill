@@ -23,12 +23,17 @@
 
 
 - (uint8_t) specificity {
-    return 2;
+    return 3;
 }
 
 
 - (BOOL) pseudoElement {
     return NO;
+}
+
+
+- (id <ModernStyleSelector>) nonPseudoElementPrimary {
+    return self;
 }
 
 
