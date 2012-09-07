@@ -18,8 +18,10 @@
 #import "ModernStyleSelector.h"
 #import "ModernStyleSelectorAfter.h"
 #import "ModernStyleSelectorBefore.h"
+#import "ModernStyleSelectorEmpty.h"
 #import "ModernStyleSelectorFirstChild.h"
 #import "ModernStyleSelectorImmediateChild.h"
+#import "ModernStyleSelectorList.h"
 #import "ModernStyleSelectorNodeType.h"
 #import "ModernStyleSelectorSchemaRoot.h"
 #import "ModernStyleSelectorWild.h"
@@ -144,7 +146,8 @@
         ModernStyle *style = [[ModernStyle alloc] init];
         ModernStyleContent *content =
             [[ModernStyleContent alloc] initAsContentList];
-        [content addItem: [[ModernStyleContentItem alloc] initAsString: @")\n"]];
+        [content addItem:
+            [[ModernStyleContentItem alloc] initAsString: @")\n"]];
         [style setProperty: @"content"
                data: &content
                size: sizeof(content)];
@@ -156,7 +159,7 @@
     }
     
     {
-        id <ModernStyleSelector> selector =
+        id <ModernStyleSelector> selectorA =
             [[ModernStyleSelectorBefore alloc]
               initWithPrimary:
                 [[ModernStyleSelectorBefore alloc]
@@ -168,11 +171,19 @@
                         [[ModernStyleSelectorFirstChild alloc]
                           initWithPrimary:
                             [[ModernStyleSelectorWild alloc] init]]]]];
+        id <ModernStyleSelector> selectorB =
+            [[ModernStyleSelectorEmpty alloc]
+              initWithPrimary:
+                [[ModernStyleSelectorSchemaRoot alloc] init]];
+        ModernStyleSelectorList *selector =
+            [[ModernStyleSelectorList alloc] init];
+        [selector addSelector: selectorA];
+        [selector addSelector: selectorB];
         ModernStyle *style = [[ModernStyle alloc] init];
         ModernStyleContent *content =
             [[ModernStyleContent alloc] initAsContentList];
         [content addItem: [[ModernStyleContentItem alloc]
-                 initAsString: @"Schema Mode\n"]];
+                 initAsString: @"Schema\n"]];
         [style setProperty: @"content"
                data: &content
                size: sizeof(content)];

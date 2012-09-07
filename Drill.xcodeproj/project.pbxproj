@@ -42,6 +42,8 @@
 		FC7EF82C15E30FF8009A6BBC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC7EF82A15E30FF8009A6BBC /* MainMenu.xib */; };
 		FCA21A5015E9974B009727B8 /* ModernPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA21A4F15E9974B009727B8 /* ModernPresentation.m */; };
 		FCA21A5415E99D7D009727B8 /* ModernStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA21A5315E99D7D009727B8 /* ModernStyle.m */; };
+		FCAB62B715F993F300337575 /* ModernStyleSelectorEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAB62B515F993F300337575 /* ModernStyleSelectorEmpty.m */; };
+		FCAB62BC15F9941100337575 /* ModernStyleSelectorList.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAB62BA15F9941100337575 /* ModernStyleSelectorList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,10 @@
 		FCA21A4F15E9974B009727B8 /* ModernPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernPresentation.m; path = ObjC/ModernPresentation.m; sourceTree = "<group>"; };
 		FCA21A5215E99D7D009727B8 /* ModernStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyle.h; path = ObjC/ModernStyle.h; sourceTree = "<group>"; };
 		FCA21A5315E99D7D009727B8 /* ModernStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyle.m; path = ObjC/ModernStyle.m; sourceTree = "<group>"; };
+		FCAB62B515F993F300337575 /* ModernStyleSelectorEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleSelectorEmpty.m; path = ObjC/ModernStyleSelectorEmpty.m; sourceTree = "<group>"; };
+		FCAB62B615F993F300337575 /* ModernStyleSelectorEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleSelectorEmpty.h; path = ObjC/ModernStyleSelectorEmpty.h; sourceTree = "<group>"; };
+		FCAB62BA15F9941100337575 /* ModernStyleSelectorList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModernStyleSelectorList.m; path = ObjC/ModernStyleSelectorList.m; sourceTree = "<group>"; };
+		FCAB62BB15F9941100337575 /* ModernStyleSelectorList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModernStyleSelectorList.h; path = ObjC/ModernStyleSelectorList.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +212,7 @@
 				98ABA22815F6754000245CD1 /* ModernStyleSelector.h */,
 				98DD963C15F93C6A00E51385 /* Basic */,
 				98DD964215F9412700E51385 /* Structural */,
+				FCAB62B915F993FD00337575 /* Aggregate */,
 				98DD963D15F93C7000E51385 /* Pseudo-Element */,
 			);
 			name = Selectors;
@@ -264,6 +271,8 @@
 		98DD964215F9412700E51385 /* Structural */ = {
 			isa = PBXGroup;
 			children = (
+				FCAB62B515F993F300337575 /* ModernStyleSelectorEmpty.m */,
+				FCAB62B615F993F300337575 /* ModernStyleSelectorEmpty.h */,
 				98DD964415F9413700E51385 /* ModernStyleSelectorFirstChild.m */,
 				98DD964515F9413700E51385 /* ModernStyleSelectorFirstChild.h */,
 				98DD964715F9449400E51385 /* ModernStyleSelectorImmediateChild.m */,
@@ -343,6 +352,15 @@
 				FC7EF82A15E30FF8009A6BBC /* MainMenu.xib */,
 			);
 			path = XIBs;
+			sourceTree = "<group>";
+		};
+		FCAB62B915F993FD00337575 /* Aggregate */ = {
+			isa = PBXGroup;
+			children = (
+				FCAB62BA15F9941100337575 /* ModernStyleSelectorList.m */,
+				FCAB62BB15F9941100337575 /* ModernStyleSelectorList.h */,
+			);
+			name = Aggregate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,6 +457,8 @@
 				98DD963B15F93C5400E51385 /* ModernStyleSelectorSchemaRoot.m in Sources */,
 				98DD964615F9413700E51385 /* ModernStyleSelectorFirstChild.m in Sources */,
 				98DD964915F9449400E51385 /* ModernStyleSelectorImmediateChild.m in Sources */,
+				FCAB62B715F993F300337575 /* ModernStyleSelectorEmpty.m in Sources */,
+				FCAB62BC15F9941100337575 /* ModernStyleSelectorList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
